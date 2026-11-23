@@ -15,103 +15,129 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>黑金指板</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500;1,6..96,700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
 <style>
-/* Layout: sticky lacquer header (key + tabs) → control panel → full-length Les Paul Custom neck (vertical on phones, horizontal on wide screens) */
+/* Layout: one-row lacquer top bar → focused control panel → full-length neck → fixed bottom tab bar; choices open in slide-up sheets */
 :root{
   color-scheme:dark;
-  --ink:#0a0907;          /* black lacquer */
-  --lacquer:#14120e;
-  --raise:#1d1a14;
-  --line:#2f2a20;
-  --gold:#d4af37;
-  --gold-hi:#f3d98c;
-  --gold-lo:#8a6d1f;
-  --text:#f0e8d6;
-  --muted:#a59c86;
-  --cream:#eadfc2;        /* binding */
-  --ok:#5cc98a; --bad:#e2574c;
-  --d1:#e8bf4a; --d2:#ef8f5e; --d3:#ec6b86; --d4:#b18aea; --d5:#5aaef0; --d6:#46c9ac; --d7:#a6d264;
+  --ink:#090806;--lacquer:#131109;--raise:#1c1912;--raise2:#242017;--line:#2e291f;--hair:rgba(212,175,55,.22);
+  --gold:#d4af37;--gold-hi:#f3d98c;--gold-lo:#8a6d1f;
+  --text:#f2ebda;--muted:#a39a84;--faint:#6f6754;--cream:#eadfc2;
+  --ok:#5cc98a;--bad:#e2574c;
+  --d1:#e8bf4a;--d2:#ef8f5e;--d3:#ec6b86;--d4:#b18aea;--d5:#5aaef0;--d6:#46c9ac;--d7:#a6d264;
   --f-display:"Bodoni Moda","Noto Serif TC",Georgia,serif;
   --f-body:"Noto Sans TC",-apple-system,"PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --nav-h:62px;
 }
 html,body{background:var(--ink);color:var(--text)}
-body{font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-tap-highlight-color:transparent}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--lacquer)}
-.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:linear-gradient(180deg,var(--lacquer),#100e0b);border-bottom:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.45)}
-header .wrap{padding-block:10px 0;display:flex;flex-direction:column;gap:8px}
-.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand h1{margin:0;font-family:var(--f-display);font-style:italic;font-weight:500;font-size:22px;letter-spacing:.02em;color:var(--gold-hi);line-height:1}
-.brand h1 b{font-style:normal;font-family:var(--f-body);font-weight:900;font-size:13px;letter-spacing:.3em;color:var(--gold);margin-left:8px;vertical-align:3px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--ink);gap:2px}
-.seg button{all:unset;cursor:pointer;padding:4px 11px;border-radius:999px;font-size:13px;color:var(--muted);white-space:nowrap}
-.seg button[aria-pressed="true"]{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1306;font-weight:700}
-.seg button:focus-visible,.chip:focus-visible,.tab:focus-visible,.btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
-.keys{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-.keys::-webkit-scrollbar{display:none}
-.key{all:unset;cursor:pointer;flex:0 0 auto;min-width:38px;text-align:center;padding:6px 4px;border-radius:8px;border:1px solid var(--line);background:var(--raise);font-weight:700;font-size:15px;color:var(--text);font-variant-numeric:tabular-nums}
-.key[aria-pressed="true"]{border-color:var(--gold);color:#1a1306;background:radial-gradient(circle at 50% 30%,var(--gold-hi),var(--gold) 70%)}
-.tabs{display:grid;grid-template-columns:repeat(6,1fr)}
-.tab{all:unset;cursor:pointer;text-align:center;padding:9px 0 10px;font-size:14px;color:var(--muted);border-bottom:2px solid transparent;font-weight:500}
-.tab[aria-selected="true"]{color:var(--gold-hi);border-bottom-color:var(--gold);font-weight:700}
+body{font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--lacquer)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
 
-main .wrap{padding-block:14px 120px;display:flex;flex-direction:column;gap:14px}
+/* ---------- intro ---------- */
+.intro{position:fixed;inset:0;z-index:100;background:radial-gradient(80% 60% at 50% 45%,#1d1810 0%,#0b0907 60%,#050403 100%);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.intro .stage{position:relative;height:min(86vh,86dvh,900px);aspect-ratio:2/5;max-width:44vw;transform-origin:50% 24%;will-change:transform}
+.intro svg{width:100%;height:100%;display:block;filter:drop-shadow(0 30px 40px rgba(0,0,0,.7))}
+.intro .copy{position:absolute;left:0;right:0;bottom:calc(5vh + env(safe-area-inset-bottom,0px));text-align:center;pointer-events:none;transition:opacity .25s}
+.intro .t1{font-family:var(--f-display);font-style:italic;font-size:30px;color:var(--gold-hi);letter-spacing:.02em;line-height:1}
+.intro .t2{font-size:12px;letter-spacing:.42em;color:var(--gold);margin-top:8px;padding-left:.42em}
+.intro .t3{margin-top:18px;font-size:13px;color:var(--muted);letter-spacing:.2em;animation:breathe 1.8s ease-in-out infinite}
+.intro .side{transition:opacity .2s;position:absolute;top:calc(6vh + env(safe-area-inset-top,0px));left:0;right:0;text-align:center;font-size:11px;letter-spacing:.5em;color:var(--faint);padding-left:.5em}
+@keyframes breathe{50%{opacity:.35}}
+@media (min-width:760px){.intro .stage{max-width:none}}
+
+/* ---------- top bar ---------- */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(19,17,9,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
+.bar{display:flex;align-items:center;gap:10px;padding-block:9px}
+.brand{display:flex;align-items:baseline;gap:8px;margin-right:auto;min-width:0}
+.brand .l1{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:21px;color:var(--gold-hi);line-height:1;white-space:nowrap}
+.brand .l2{font-size:11px;font-weight:700;letter-spacing:.28em;color:var(--gold);white-space:nowrap}
+.keybtn{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:999px;background:var(--raise);border:1px solid var(--line)}
+.keybtn .k{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:15px;color:#1a1306;background:radial-gradient(circle at 40% 30%,#fff1bf,var(--gold) 60%,#a47b1c)}
+.keybtn .kl{font-size:13px;color:var(--text);white-space:nowrap}
+.keybtn svg,.iconbtn svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
+.iconbtn{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--raise);border:1px solid var(--line)}
+.iconbtn svg{width:19px;height:19px;stroke:var(--gold-hi)}
+
+/* ---------- panel ---------- */
+main .wrap{padding-block:16px calc(var(--nav-h) + 28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:16px}
 .panel{display:flex;flex-direction:column;gap:12px;min-width:0}
-.panel h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.15;color:var(--gold-hi);text-wrap:balance}
-.panel h2 small{font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--muted);margin-left:8px;letter-spacing:.04em}
-.panel h3{margin:4px 0 0;font-size:12px;letter-spacing:.18em;color:var(--gold);font-weight:700}
-.panel p{margin:0;color:var(--muted);max-width:68ch}
+.eyebrow{font-size:11px;letter-spacing:.24em;color:var(--gold);font-weight:700}
+.title{all:unset;display:inline-flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.15;color:var(--gold-hi);text-wrap:balance}
+button.title{cursor:pointer}
+button.title svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:2.4;flex:0 0 auto}
+.title small{font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--muted);letter-spacing:.04em}
+.lead{margin:0;color:var(--muted);font-size:14px;max-width:62ch}
+.lead b{color:var(--text);font-weight:700}
+.headrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.headrow .grow{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.play{all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold));box-shadow:0 4px 14px rgba(212,175,55,.25);flex:0 0 auto}
+.play svg{width:18px;height:18px;fill:#1a1306}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--lacquer);gap:2px;max-width:100%}
+.seg button{all:unset;cursor:pointer;padding:6px 13px;border-radius:999px;font-size:13px;color:var(--muted);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--raise2);color:var(--gold-hi);font-weight:700;box-shadow:inset 0 0 0 1px var(--gold-lo)}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.chip{all:unset;cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--raise);font-size:14px;color:var(--text);white-space:nowrap}
-.chip[aria-pressed="true"]{border-color:var(--gold);background:#2a2211;color:var(--gold-hi);font-weight:700}
-.chip small{color:var(--muted);font-size:11px;margin-left:4px}
-.btn{all:unset;cursor:pointer;padding:8px 16px;border-radius:999px;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1306;font-weight:700;font-size:14px}
-.btn.ghost{background:transparent;color:var(--gold-hi);border:1px solid var(--gold-lo)}
-select{font:inherit;color:var(--text);background:var(--raise);border:1px solid var(--line);border-radius:8px;padding:7px 10px;max-width:100%}
-input[type=range]{accent-color:var(--gold)}
-label.tog{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer}
-label.tog input{accent-color:var(--gold);width:16px;height:16px}
-.degs{display:flex;flex-wrap:wrap;gap:6px}
-.deg{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;min-width:44px;padding:5px 6px;border-radius:10px;background:var(--raise);border:1px solid var(--line)}
-.deg .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#140f05;font-weight:900;font-size:13px}
-.deg .nm{font-size:12px;color:var(--text);margin-top:3px}
-.deg[aria-pressed="false"]{opacity:.32}
-.card{background:var(--lacquer);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
-.grid7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.dc{all:unset;cursor:pointer;text-align:center;padding:8px 2px;border-radius:10px;background:var(--raise);border:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
-.dc .rn{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--gold-hi)}
-.dc .cn{font-size:13px;font-weight:700;overflow-wrap:anywhere}
-.dc .fn{font-size:10px;color:var(--muted);letter-spacing:.06em}
+.scroller{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;padding-bottom:2px}
+.scroller::-webkit-scrollbar{display:none}
+.pill{all:unset;cursor:pointer;flex:0 0 auto;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--raise);font-size:14px;white-space:nowrap}
+.pill small{color:var(--muted);font-size:11px;margin-left:5px}
+.pill[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-hi);background:#2a2211;font-weight:700}
+.dots{display:flex;flex-wrap:wrap;gap:8px}
+.dot{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:40px}
+.dot .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#140f05;font-weight:900;font-size:14px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.25);transition:opacity .2s,transform .2s}
+.dot .nm{font-size:12px;color:var(--muted)}
+.dot[aria-pressed="false"] .n{opacity:.22;transform:scale(.86)}
+div.dot{cursor:default}
+.shapes{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.shape{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:21px;color:var(--c);border:2px solid color-mix(in srgb,var(--c) 45%,transparent);background:var(--lacquer)}
+.shape[aria-pressed="true"]{background:var(--c);color:#140f05;border-color:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent)}
+.shape.all{font-family:var(--f-body);font-size:13px;font-weight:700;width:auto;padding:0 14px;border-radius:999px;--c:var(--gold-hi)}
+.stepper{display:flex;align-items:center;gap:6px;background:var(--lacquer);border:1px solid var(--line);border-radius:14px;padding:6px}
+.stepper button{all:unset;cursor:pointer;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--raise)}
+.stepper button svg{width:18px;height:18px;stroke:var(--gold-hi);fill:none;stroke-width:2.4}
+.stepper .mid{flex:1;min-width:0;text-align:center;display:flex;flex-direction:column}
+.stepper .mid b{font-size:15px}
+.stepper .mid span{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grid7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.dc{all:unset;cursor:pointer;text-align:center;padding:9px 0 8px;border-radius:12px;background:var(--lacquer);border:1px solid var(--line);display:flex;flex-direction:column;gap:1px;min-width:0}
+.dc .rn{font-family:var(--f-display);font-weight:700;font-size:16px;color:var(--gold-hi);white-space:nowrap}
+.dc .cn{font-size:12px;font-weight:700;overflow-wrap:anywhere;line-height:1.25}
+.dc .fn{font-size:9.5px;color:var(--faint);letter-spacing:.08em}
 .dc[aria-pressed="true"]{border-color:var(--gold);background:#2a2211}
-.dc.playing{box-shadow:0 0 0 2px var(--gold-hi)}
+.dc.playing{border-color:var(--gold-hi);box-shadow:0 0 0 2px var(--gold-hi)}
+.card{background:linear-gradient(180deg,var(--lacquer),#100e09);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{margin:0;font-size:11px;letter-spacing:.22em;color:var(--gold);font-weight:700}
 .seq{display:flex;flex-wrap:wrap;gap:6px}
-.seq span{padding:4px 9px;border-radius:6px;background:var(--raise);border:1px solid var(--line);font-weight:700;font-size:13px}
-.seq span.on{background:var(--gold);color:#1a1306;border-color:var(--gold)}
-.split{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px;align-items:start}
-@media (max-width:720px){.split{grid-template-columns:minmax(0,1fr)}.grid7{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.cof{width:100%;max-width:240px;justify-self:center}
-.stat{display:flex;gap:18px;font-variant-numeric:tabular-nums}
-.stat div{display:flex;flex-direction:column}
-.stat b{font-family:var(--f-display);font-size:26px;color:var(--gold-hi);line-height:1}
-.stat span{font-size:11px;color:var(--muted);letter-spacing:.1em}
-.answers{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px}
-.answers .chip{text-align:center;font-weight:700;font-size:16px;padding:10px 0}
-.answers .chip.ok{background:var(--ok);color:#06140c;border-color:var(--ok)}
-.answers .chip.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
-.msg{font-weight:700;color:var(--gold-hi)}
+.seq span{padding:4px 10px;border-radius:8px;background:var(--raise);font-weight:700;font-size:13px;transition:background .15s}
+.seq span.on{background:var(--gold);color:#1a1306}
+.tempo{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tempo button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--raise);color:var(--gold-hi);font-weight:700}
+.stat{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-variant-numeric:tabular-nums}
+.stat div{background:var(--lacquer);border:1px solid var(--line);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column}
+.stat b{font-family:var(--f-display);font-size:24px;color:var(--gold-hi);line-height:1.1}
+.stat span{font-size:10px;color:var(--muted);letter-spacing:.12em}
+.answers{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:7px}
+.answers button{all:unset;cursor:pointer;text-align:center;font-weight:900;font-size:17px;padding:12px 0;border-radius:12px;background:var(--raise);border:1px solid var(--line)}
+.answers .ok{background:var(--ok);color:#06140c;border-color:var(--ok)}
+.answers .bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+.msg{font-weight:700;color:var(--gold-hi);margin:0}
+.ghostbtn{all:unset;cursor:pointer;padding:8px 16px;border-radius:999px;border:1px solid var(--gold-lo);color:var(--gold-hi);font-size:14px;font-weight:700}
+.goldbtn{all:unset;cursor:pointer;padding:8px 18px;border-radius:999px;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1306;font-size:14px;font-weight:700}
 .learn{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-.learn .card p,.learn .card li{color:var(--muted);font-size:14px}
-.learn .card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.learn .card p,.learn .card li{color:var(--muted);font-size:14px;margin:0}
+.learn .card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
 .learn .card b{color:var(--text)}
 .tbl{overflow-x:auto}
 .tbl table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
 .tbl th,.tbl td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
 .tbl th{color:var(--gold);font-weight:700;font-size:12px}
 .src a{color:var(--gold-hi)}
-.src li{font-size:13px}
+.hint{font-size:12px;color:var(--faint);margin:0}
 
-.neck{position:relative;min-width:0;border-radius:14px;background:radial-gradient(120% 60% at 50% 0%,#1a1711,var(--ink));padding-block:6px}
+/* ---------- neck ---------- */
+.neck{position:relative;min-width:0;border-radius:18px;background:radial-gradient(120% 50% at 50% 0%,#1b170f,var(--ink));padding-block:8px;border:1px solid rgba(212,175,55,.08)}
 #neckSvg{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 #neckSvg text{font-family:var(--f-body);pointer-events:none}
 .m{transform-box:fill-box;transform-origin:center;animation:pop .28s cubic-bezier(.2,1.4,.4,1) both}
@@ -121,46 +147,84 @@ label.tog input{accent-color:var(--gold);width:16px;height:16px}
 @keyframes pulse{50%{transform:scale(1.15);opacity:.6}}
 .flash{animation:fl 1.6s ease-out forwards}
 @keyframes fl{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.m,.pulse,.flash{animation:none}}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;background:rgba(20,18,14,.96);border:1px solid var(--gold-lo);color:var(--text);padding:9px 16px;border-radius:999px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.5);max-width:calc(100% - 32px);text-align:center;transition:opacity .25s}
+
+/* ---------- bottom nav ---------- */
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(15,13,9,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--hair);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.bottom .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);height:var(--nav-h)}
+.nb{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:var(--faint);position:relative}
+.nb svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nb[aria-selected="true"]{color:var(--gold-hi)}
+.nb[aria-selected="true"]::before{content:"";position:absolute;top:0;width:26px;height:2px;border-radius:2px;background:var(--gold)}
+
+/* ---------- sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:50}
+.sheet .bd{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .22s}
+.sheet .body{position:absolute;left:0;right:0;bottom:0;max-height:84vh;overflow-y:auto;background:linear-gradient(180deg,#19160f,#0f0d09);border-top:1px solid var(--hair);border-radius:22px 22px 0 0;transform:translateY(100%);transition:transform .26s cubic-bezier(.2,.8,.2,1);padding:10px max(18px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));max-width:640px;margin:0 auto}
+.sheet.open .bd{opacity:1}.sheet.open .body{transform:none}
+.grab{width:40px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 12px}
+.sheet h4{margin:4px 0 12px;font-family:var(--f-display);font-size:22px;color:var(--gold-hi);font-weight:700}
+.sheet h5{margin:16px 0 8px;font-size:11px;letter-spacing:.22em;color:var(--gold);font-weight:700}
+.list{display:flex;flex-direction:column;gap:6px}
+.li{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;background:var(--raise);border:1px solid transparent}
+.li[aria-pressed="true"]{border-color:var(--gold);background:#2a2211}
+.li .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.li .tx b{font-size:15px}
+.li .tx span{font-size:12px;color:var(--muted)}
+.li .ck{width:18px;height:18px;stroke:var(--gold-hi);fill:none;stroke-width:2.6;visibility:hidden}
+.li[aria-pressed="true"] .ck{visibility:visible}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
+.cgrid button{all:unset;cursor:pointer;padding:10px 6px;border-radius:12px;background:var(--raise);border:1px solid transparent;text-align:center;display:flex;flex-direction:column}
+.cgrid button b{font-size:15px}
+.cgrid button span{font-size:11px;color:var(--muted)}
+.cgrid button[aria-pressed="true"]{border-color:var(--gold);background:#2a2211;color:var(--gold-hi)}
+.set{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line)}
+.set .tx{display:flex;flex-direction:column}
+.set .tx span{font-size:12px;color:var(--muted)}
+.sw{position:relative;width:48px;height:28px;flex:0 0 auto}
+.sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;z-index:1}
+.sw i{position:absolute;inset:0;border-radius:999px;background:var(--line);transition:background .2s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#d9d2c0;transition:transform .2s}
+.sw input:checked+i{background:var(--gold)}
+.sw input:checked+i::after{transform:translateX(20px);background:#fff8e2}
+.sw input:focus-visible+i{outline:2px solid var(--gold-hi);outline-offset:2px}
+.cof{width:100%;max-width:330px;display:block;margin:0 auto}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + 12px + env(safe-area-inset-bottom,0px));z-index:25;background:rgba(24,21,14,.97);border:1px solid var(--gold-lo);color:var(--text);padding:9px 16px;border-radius:999px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.5);max-width:calc(100% - 32px);text-align:center;width:max-content}
 .toast b{color:var(--gold-hi)}
-.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted)}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+@media (prefers-reduced-motion:reduce){.m,.pulse,.flash,.intro .t3{animation:none}.sheet .body,.sheet .bd{transition:none}}
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <div class="brand">
-      <h1>Ebony Custom<b>黑金指板</b></h1>
-      <div class="seg" role="group" aria-label="標示方式">
-        <button data-act="label" data-v="deg">1 2 3</button>
-        <button data-act="label" data-v="name">音名</button>
-        <button data-act="label" data-v="int">音程</button>
-      </div>
-    </div>
-    <div class="keys" id="keys" role="group" aria-label="調性 / 根音"></div>
-    <nav class="tabs" role="tablist">
-      <button class="tab" role="tab" data-act="tab" data-v="scale">音階</button>
-      <button class="tab" role="tab" data-act="tab" data-v="caged">CAGED</button>
-      <button class="tab" role="tab" data-act="tab" data-v="chord">和弦</button>
-      <button class="tab" role="tab" data-act="tab" data-v="dia">順階</button>
-      <button class="tab" role="tab" data-act="tab" data-v="quiz">練習</button>
-      <button class="tab" role="tab" data-act="tab" data-v="learn">樂理</button>
-    </nav>
-  </div>
-</header>
+<div class="intro" id="intro" role="button" tabindex="0" aria-label="輕觸進入">
+  <div class="side">LES PAUL CUSTOM · EBONY</div>
+  <div class="stage" id="stage"><svg id="guitar" viewBox="0 0 400 1000" aria-hidden="true"></svg></div>
+  <div class="copy" id="introCopy"><div class="t1">Ebony Custom</div><div class="t2">黑金指板・吉他樂理</div><div class="t3">輕觸琴頸開始</div></div>
+</div>
 
-<main>
-  <div class="wrap">
-    <section class="panel" id="panel"></section>
-    <div class="neck" id="neck"><svg id="neckSvg" xmlns="http://www.w3.org/2000/svg"><g id="stat"></g><g id="dyn"></g></svg></div>
-    <section class="panel" id="panel2"></section>
-  </div>
-</main>
+<header class="top"><div class="wrap bar">
+  <div class="brand"><span class="l1">Ebony</span><span class="l2">黑金指板</span></div>
+  <button class="keybtn" data-act="sheet" data-v="key" aria-label="選擇調性"><span class="k" id="keyK">C</span><span class="kl" id="keyL">C 大調</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+  <button class="iconbtn" data-act="sheet" data-v="display" aria-label="顯示設定"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
+</div></header>
+
+<main><div class="wrap">
+  <section class="panel" id="panel"></section>
+  <div class="neck" id="neck"><svg id="neckSvg" xmlns="http://www.w3.org/2000/svg"><g id="stat"></g><g id="dyn"></g></svg></div>
+  <section class="panel" id="panel2"></section>
+</div></main>
+
+<nav class="bottom" aria-label="主選單"><div class="in" role="tablist">
+  <button class="nb" role="tab" data-act="tab" data-v="scale"><svg viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="10" cy="13" r="2"/><circle cx="15" cy="9" r="2"/><circle cx="20" cy="5" r="2"/></svg>音階</button>
+  <button class="nb" role="tab" data-act="tab" data-v="caged"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>CAGED</button>
+  <button class="nb" role="tab" data-act="tab" data-v="chord"><svg viewBox="0 0 24 24"><path d="M5 3v18M10 3v18M15 3v18M20 3v18M5 7h15M5 12h15"/><circle cx="10" cy="9.5" r="1.6" fill="currentColor"/><circle cx="15" cy="14.5" r="1.6" fill="currentColor"/></svg>和弦</button>
+  <button class="nb" role="tab" data-act="tab" data-v="dia"><svg viewBox="0 0 24 24"><path d="M3 20h5v-5h5v-5h5V5h3"/></svg>順階</button>
+  <button class="nb" role="tab" data-act="tab" data-v="quiz"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>練習</button>
+  <button class="nb" role="tab" data-act="tab" data-v="learn"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2V5z"/><path d="M4 19a2 2 0 012-2h13"/></svg>樂理</button>
+</div></nav>
+
+<div class="sheet" id="sheet" hidden><div class="bd" data-act="closeSheet"></div><div class="body" role="dialog" aria-modal="true"><div class="grab"></div><div id="sheetContent"></div></div></div>
 <div class="toast" id="toast" hidden></div>
-
 <script>
 /* ================= music data ================= */
 const LET='CDEFGAB', NAT=[0,2,4,5,7,9,11];
@@ -246,17 +310,17 @@ const PROGS=[
  {id:'blues',name:'12 小節藍調',zh:'I7・IV7・V7 屬七和弦',seq:[1,1,1,1,4,4,1,1,5,4,1,5],dom:true},
 ];
 
+
 /* ================= state ================= */
-const DEF={key:0,tab:'scale',label:'deg',parent:false,scale:'major',chrom:false,hidden:[],
+const DEF={key:0,tab:'scale',label:'deg',parent:false,scale:'major',chrom:false,hidden:[],sound:true,
   caged:{shape:'E',minor:false,ov:'scale'},chord:{type:'maj',v:0,all:true},
   dia:{mode:'major',sev:false,sel:0,prog:'1645',bpm:88,open:true,scale:true},
   quiz:{mode:'deg',ans:'deg',range:12},learn:'naturals'};
 let S;
-try{S=Object.assign(structuredClone(DEF),JSON.parse(localStorage.getItem('ebony-fb')||'{}'));}catch(e){S=structuredClone(DEF)}
+try{S=Object.assign(structuredClone(DEF),JSON.parse(localStorage.getItem('ebony-fb2')||'{}'));}catch(e){S=structuredClone(DEF)}
 for(const k of ['caged','chord','dia','quiz'])S[k]=Object.assign(structuredClone(DEF[k]),S[k]||{});
-const save=()=>{try{localStorage.setItem('ebony-fb',JSON.stringify(S))}catch(e){}};
-const RT={flash:null,q:null,find:null,score:0,total:0,streak:0,play:null,playIdx:-1,progChord:null,scrollTo:null,noanim:false,cagedMemo:null};
-
+const save=()=>{try{localStorage.setItem('ebony-fb2',JSON.stringify(S))}catch(e){}};
+const RT={flash:null,q:null,find:null,score:0,total:0,streak:0,play:null,playIdx:-1,scrollTo:null,noanim:false,cagedMemo:null,sheet:null};
 /* ================= theory helpers ================= */
 const keyL=()=>KEYS[S.key][1];
 const nameOfPc=pc=>(FLATPREF.has(S.key)||S.key===5?FLAT_N:SHARP_N)[pc];
@@ -284,7 +348,7 @@ function buildDiatonic(sc,t,tL,sev){
     const r=ns[i],iv=[2,4,6].map(k=>mod(ns[(i+k)%7].pc-r.pc,12));
     const type=sev?T4[iv.join('-')]:T3[iv.slice(0,2).join('-')];
     const pd=parseDeg(r.lbl),acc=pd.acc<0?'♭':pd.acc>0?'♯':'';
-    let rn=RN[i];if(/^(m|dim)/.test(type))rn=rn.toLowerCase();
+    let rn=RN[i];if(['m','dim','m7','m7b5','dim7','mM7'].includes(type))rn=rn.toLowerCase();
     out.push({i,root:r,type,name:r.name+CH(type).sym,roman:acc+rn+SUF[type],num:acc+(i+1),sym:CH(type).sym,fn:FN[i]});
   }
   return out;
@@ -340,9 +404,9 @@ function ksBuf(midi){if(BUF[midi])return BUF[midi];const a=ac();const sr=a.sampl
   const b=a.createBuffer(1,len,sr),d=b.getChannelData(0);let prev=0;for(let i=0;i<N;i++){prev=0.55*(Math.random()*2-1)+0.45*prev;d[i]=prev}
   const damp=midi<52?0.4992:0.4985;for(let i=N;i<len;i++)d[i]=damp*(d[i-N]+(i-N-1>=0?d[i-N-1]:0));
   for(let i=len-2000;i<len;i++)d[i]*=(len-i)/2000;return BUF[midi]=b}
-function pluck(midi,when=0,vol=.55){const a=ac();if(!a)return;const s=a.createBufferSource();s.buffer=ksBuf(midi);const g=a.createGain();g.gain.value=vol;const lp=a.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3800;s.connect(lp).connect(g).connect(a.destination);s.start(a.currentTime+when)}
+function pluck(midi,when=0,vol=.55){if(!S.sound)return;const a=ac();if(!a)return;const s=a.createBufferSource();s.buffer=ksBuf(midi);const g=a.createGain();g.gain.value=vol;const lp=a.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3800;s.connect(lp).connect(g).connect(a.destination);s.start(a.currentTime+when)}
 function strum(fr,vol=.4){fr.forEach((f,s)=>{if(f!=null)pluck(TUNING[s]+f,s*0.028,vol)})}
-function tick(acc){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.frequency.value=acc?1500:1000;g.gain.setValueAtTime(acc?.12:.06,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.05);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.06)}
+function tick(acc){if(!S.sound)return;const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.frequency.value=acc?1500:1000;g.gain.setValueAtTime(acc?.12:.06,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.05);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.06)}
 
 /* ================= fretboard geometry & static drawing ================= */
 const neckEl=document.getElementById('neck'),svg=document.getElementById('neckSvg'),gStat=document.getElementById('stat'),gDyn=document.getElementById('dyn');
@@ -442,22 +506,86 @@ function renderMarks(marks,extra={}){
 }
 function* positions(maxF=NF){for(let s=0;s<6;s++)for(let f=0;f<=maxF;f++)yield[s,f]}
 
+
+/* ================= icons ================= */
+const CHEV='<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
+const PLAY='<svg viewBox="0 0 24 24"><path d="M8 5l12 7-12 7z"/></svg>';
+const STOP='<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>';
+const PREV='<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>';
+const NEXT='<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+const CHECK='<svg class="ck" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>';
+
+/* ================= intro guitar ================= */
+function drawGuitar(){
+  const SL=560,nut=200,end=612,fy=n=>nut+SL*(1-Math.pow(2,-n/12)),hw=y=>25+(y-nut)/(end-nut)*6;
+  let s=`<defs>
+  <radialGradient id="gBody" cx=".36" cy=".28" r=".9"><stop offset="0" stop-color="#3b3b3b"/><stop offset=".16" stop-color="#171717"/><stop offset=".65" stop-color="#070707"/><stop offset="1" stop-color="#000"/></radialGradient>
+  <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdeab0"/><stop offset=".45" stop-color="#d4af37"/><stop offset="1" stop-color="#7a5c15"/></linearGradient>
+  <radialGradient id="gKnob" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff4c8"/><stop offset=".5" stop-color="#d4af37"/><stop offset="1" stop-color="#6d5212"/></radialGradient>
+  <linearGradient id="gEb" x1="0" x2="1"><stop offset="0" stop-color="#0e0a07"/><stop offset=".5" stop-color="#1d150e"/><stop offset="1" stop-color="#0e0a07"/></linearGradient>
+  <linearGradient id="gHead" x1="0" x2="1"><stop offset="0" stop-color="#030303"/><stop offset=".42" stop-color="#262626"/><stop offset=".55" stop-color="#0b0b0b"/><stop offset="1" stop-color="#020202"/></linearGradient>
+  <linearGradient id="gPearl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7f2e8"/><stop offset=".35" stop-color="#dbe8ea"/><stop offset=".65" stop-color="#f2dfe8"/><stop offset="1" stop-color="#e1ecd8"/></linearGradient>
+  </defs>`;
+  s+='<ellipse cx="200" cy="988" rx="150" ry="9" fill="#000" opacity=".7"/>';
+  const body='M170 548 C120 538 72 560 62 620 C55 668 86 700 80 735 C73 772 30 800 32 872 C34 950 118 986 200 986 C282 986 366 950 368 872 C370 800 328 772 320 735 C315 702 344 682 338 642 C333 604 302 588 286 600 C270 612 262 586 258 562 C254 545 242 539 230 548 Z';
+  s+=`<path d="${body}" fill="url(#gBody)" stroke="#eadfc2" stroke-width="7"/><path d="${body}" fill="none" stroke="#0d0d0d" stroke-width="3.6"/><path d="${body}" fill="none" stroke="#eadfc2" stroke-width="1.1"/>`;
+  s+='<path d="M92 646 C104 604 146 584 170 588" stroke="#fff" stroke-opacity=".13" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M60 860 C62 820 80 798 100 786" stroke="#fff" stroke-opacity=".08" stroke-width="7" fill="none" stroke-linecap="round"/>';
+  s+='<path d="M238 618 C290 606 334 636 326 694 C320 734 286 752 252 746 L238 746 Z" fill="#090909" stroke="#eadfc2" stroke-width="1.4"/>';
+  s+='<circle cx="98" cy="612" r="9" fill="#eadfc2"/><circle cx="98" cy="612" r="5.5" fill="#111"/><line x1="98" y1="612" x2="90" y2="599" stroke="url(#gGold)" stroke-width="3" stroke-linecap="round"/><circle cx="89" cy="598" r="3.6" fill="#f3e6c0"/>';
+  for(const[y0,y1]of[[624,668],[710,752]]){s+=`<rect x="159" y="${y0-6}" width="82" height="${y1-y0+12}" rx="6" fill="#0a0a0a" stroke="#262626"/><rect x="165" y="${y0}" width="70" height="${y1-y0}" rx="4" fill="url(#gGold)" stroke="#6b5216"/>`;
+    for(let i=0;i<6;i++)for(const k of[.3,.7])s+=`<circle cx="${172+i*11.2}" cy="${y0+(y1-y0)*k}" r="2.6" fill="#7a5c15"/>`}
+  s+='<circle cx="158" cy="765" r="5" fill="url(#gGold)"/><circle cx="242" cy="765" r="5" fill="url(#gGold)"/><rect x="162" y="760" width="76" height="9" rx="3" fill="url(#gGold)" stroke="#6b5216"/>';
+  s+='<circle cx="152" cy="803" r="6.5" fill="url(#gGold)"/><circle cx="248" cy="803" r="6.5" fill="url(#gGold)"/><rect x="157" y="796" width="86" height="14" rx="7" fill="url(#gGold)" stroke="#6b5216"/>';
+  for(const[x,y]of[[282,812],[330,828],[292,868],[340,886]])s+=`<circle cx="${x+2}" cy="${y+3}" r="15" fill="#000" opacity=".6"/><circle cx="${x}" cy="${y}" r="14.5" fill="url(#gKnob)" stroke="#5c4510"/><circle cx="${x}" cy="${y}" r="9" fill="none" stroke="#fff3c4" stroke-opacity=".45"/><line x1="${x}" y1="${y-9}" x2="${x}" y2="${y-4}" stroke="#4a370c" stroke-width="2"/>`;
+  s+='<circle cx="355" cy="930" r="7" fill="#111" stroke="url(#gGold)" stroke-width="2.5"/><circle cx="200" cy="987" r="5" fill="url(#gGold)"/>';
+  // board
+  s+=`<polygon points="175,200 225,200 231,${end} 169,${end}" fill="url(#gEb)"/>`;
+  s+=`<line x1="174" y1="200" x2="168" y2="${end}" stroke="#eadfc2" stroke-width="2.2"/><line x1="226" y1="200" x2="232" y2="${end}" stroke="#eadfc2" stroke-width="2.2"/>`;
+  for(const f of INLAYS){const a=fy(f-1),b=fy(f),m=(a+b)/2,h=(b-a)*.56,w=hw(m)*2*.74;s+=`<rect x="${200-w/2}" y="${m-h/2}" width="${w}" height="${h}" rx="1" fill="url(#gPearl)" opacity=".9"/>`}
+  for(let n=1;n<=22;n++){const y=fy(n),w=hw(y);s+=`<line x1="${200-w}" y1="${y}" x2="${200+w}" y2="${y}" stroke="#cfc8b8" stroke-width="1.5"/>`}
+  // headstock
+  const head='M172 200 L146 72 Q142 44 166 41 Q190 39 200 55 Q210 39 234 41 Q258 44 254 72 L228 200 Z';
+  s+=`<path d="${head}" fill="url(#gHead)" stroke="#eadfc2" stroke-width="2.4"/>`;
+  s+='<path d="M197 66 L175 90 L197 114 L189 90 Z" fill="url(#gPearl)"/><path d="M203 66 L225 90 L203 114 L211 90 Z" fill="url(#gPearl)"/>';
+  s+='<path d="M190 186 Q185 160 200 151 Q215 160 210 186 Z" fill="#0c0c0c" stroke="#eadfc2" stroke-width="1.1"/>';
+  s+='<rect x="174" y="196" width="52" height="5" rx="1" fill="#efe6cf"/>';
+  const postsL=[[172,152],[165,116],[158,80]],postsR=[[228,152],[235,116],[242,80]];
+  [...postsL,...postsR].forEach(([x,y],i)=>{const left=i<3,bx=left?x-36:x+36;s+=`<line x1="${x}" y1="${y}" x2="${bx}" y2="${y}" stroke="url(#gGold)" stroke-width="4"/><ellipse cx="${bx+(left?-4:4)}" cy="${y}" rx="10" ry="7" fill="url(#gGold)" stroke="#6b5216"/>`});
+  // strings
+  const ws=[1.6,1.4,1.2,1,.8,.7];
+  for(let i=0;i<6;i++){const xn=179+i*8.4,xb=172+i*11.2,xt=170+i*12,post=i<3?postsL[i]:postsR[5-i];const col=i<3?'#cdbf9f':'#e8e8e4';
+    s+=`<line x1="${post[0]}" y1="${post[1]}" x2="${xn}" y2="200" stroke="${col}" stroke-width="${ws[i]}"/><line x1="${xn}" y1="200" x2="${xb}" y2="764" stroke="${col}" stroke-width="${ws[i]}"/><line x1="${xb}" y1="764" x2="${xt}" y2="803" stroke="${col}" stroke-width="${ws[i]}"/>`}
+  [...postsL,...postsR].forEach(([x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="5.5" fill="url(#gGold)" stroke="#5c4510"/><circle cx="${x}" cy="${y}" r="2" fill="#3a2d0a"/>`});
+  document.getElementById('guitar').innerHTML=s;
+}
+let entered=false;
+function enterApp(){
+  if(entered)return;entered=true;
+  strum([null,3,2,0,1,0],.32);
+  const intro=document.getElementById('intro'),st=document.getElementById('stage');document.getElementById('introCopy').style.opacity=0;intro.querySelector('.side').style.opacity=0;
+  const done=()=>{intro.hidden=true};
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){intro.animate([{opacity:1},{opacity:0}],{duration:200,fill:'forwards'}).onfinish=done;return}
+  st.animate([{transform:'scale(1)'},{transform:'scale(5.2)'}],{duration:850,easing:'cubic-bezier(.6,0,.25,1)',fill:'forwards'});
+  intro.animate([{opacity:1},{opacity:1,offset:.55},{opacity:0}],{duration:850,fill:'forwards'}).onfinish=done;
+  document.querySelector('main').animate([{opacity:0,transform:'scale(.97)'},{opacity:0,offset:.5},{opacity:1,transform:'none'}],{duration:850,easing:'ease-out'});
+}
+function replayIntro(){const intro=document.getElementById('intro'),st=document.getElementById('stage');
+  intro.getAnimations().forEach(a=>a.cancel());st.getAnimations().forEach(a=>a.cancel());document.getElementById('introCopy').style.opacity=1;intro.querySelector('.side').style.opacity=1;intro.hidden=false;entered=false;scrollTo(0,0)}
+
 /* ================= views ================= */
 const panel=document.getElementById('panel'),panel2=document.getElementById('panel2');
 const pressed=b=>`aria-pressed="${!!b}"`;
 const keyTitle=()=>KEYS[S.key][0];
+const seg=(act,cur,opts)=>`<div class="seg" role="group">${opts.map(([v,t])=>`<button data-act="${act}" data-v="${v}" ${pressed(String(cur)===String(v))}>${t}</button>`).join('')}</div>`;
 
 function viewScale(){
   const sc=SC(S.scale),ns=scaleNotes(sc),c=ctxFor(S.key,keyL(),sc);
-  const groups=[...new Set(SCALES.map(s=>s.g))];
-  const rel=sc.p!==1?`・關係大調 ${LET[c.pL]+ACC[mod(c.pPc-NAT[c.pL]+6,12)-6]}`:'';
-  panel.innerHTML=`<div class="row"><select id="scaleSel" data-change="scale" aria-label="選擇音階">${groups.map(g=>`<optgroup label="${g}">${SCALES.filter(s=>s.g===g).map(s=>`<option value="${s.id}" ${s.id===S.scale?'selected':''}>${s.zh}・${s.en}</option>`).join('')}</optgroup>`).join('')}</select></div>
-  <h2>${ns[0].name} ${sc.zh}<small>${sc.en}${rel}</small></h2>
-  <p>${sc.desc}</p>
-  <div class="degs">${ns.map(n=>`<button class="deg" data-act="hide" data-v="${n.lbl}" ${pressed(!S.hidden.includes(n.lbl))} style="--c:${colorOf(n.lbl)}"><span class="n">${fmt(S.parent&&c.pPc!=null?parentLbl(n,c):n.lbl)}</span><span class="nm">${n.name}</span></button>`).join('')}</div>
-  <div class="row"><label class="tog"><input type="checkbox" id="tChrom" data-tog="chrom" ${S.chrom?'checked':''}>顯示非音階音（半音）</label>
-  ${sc.p!==1?`<label class="tog"><input type="checkbox" id="tParent" data-tog="parent" ${S.parent?'checked':''}>首調簡譜（以關係大調為 1）</label>`:''}</div>
-  <p style="font-size:12px">點上方的級數可以隱藏或顯示該音，例如只留 1・3・5 看和弦骨架。點指板上任何一個音會發出聲音，並標出指板上所有同名的音。</p>`;
+  const rel=sc.p!==1?`　關係大調是 <b>${LET[c.pL]+ACC[mod(c.pPc-NAT[c.pL]+6,12)-6]}</b>。`:'';
+  panel.innerHTML=`<div class="headrow"><div class="grow"><span class="eyebrow">SCALE · ${sc.en.toUpperCase()}</span>
+   <button class="title" data-act="sheet" data-v="scale">${ns[0].name} ${sc.zh}${CHEV}</button></div></div>
+  <p class="lead">${sc.desc}${rel}</p>
+  <div class="dots">${ns.map(n=>`<button class="dot" data-act="hide" data-v="${n.lbl}" ${pressed(!S.hidden.includes(n.lbl))} style="--c:${colorOf(n.lbl)}"><span class="n">${fmt(S.parent&&c.pPc!=null?parentLbl(n,c):n.lbl)}</span><span class="nm">${n.name}</span></button>`).join('')}</div>
+  <p class="hint">點色點可以隱藏某個級數，例如只留 1・3・5。點指板上的音會發聲，並圈出整個指板上的同名音。</p>`;
   panel2.innerHTML='';
   const map=new Map(ns.map(n=>[n.pc,n]));const marks=[];
   for(const[s,f]of positions()){const p=pcAt(s,f),n=map.get(p);
@@ -469,37 +597,38 @@ function viewScale(){
 function viewCaged(){
   const C=S.caged,minor=C.minor,t=S.key,tL=keyL();
   const sc=SC(minor?'minor':'major'),ns=scaleNotes(sc),pent=scaleNotes(SC(minor?'minp':'majp'));const c=ctxFor(t,tL,sc);
-  const chordT=chordTones(t,tL,minor?'m':'maj'),rootName=ns[0].name;
+  const chordT=chordTones(t,tL,minor?'m':'maj'),rootName=ns[0].name+(minor?'m':'');
   const map=new Map(ns.map(n=>[n.pc,n])),pmap=new Map(pent.map(n=>[n.pc,n])),cpc=new Map(chordT.map(n=>[n.pc,n]));
-  const marks=[],zones=[],lines=[];let info='';
+  const marks=[],zones=[],lines=[];let info='',title='';
   const ovMap=C.ov==='pent'?pmap:map;
   if(C.shape==='all'){
     let all=[];CORDER.forEach(L=>cagedInstances(L,t,minor).forEach(i=>all.push(i)));all.sort((a,b)=>a.win[0]-b.win[0]);
     all.forEach((z,i)=>zones.push({win:z.win,letter:z.letter,col:CCOL[z.letter],lane:i%2}));
     for(const[s,f]of positions()){const p=pcAt(s,f);if(cpc.has(p)){const n=cpc.get(p);marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',text:labelOf(n,c)})}
       else if(C.ov!=='none'&&ovMap.has(p)){const n=ovMap.get(p);marks.push({s,f,kind:'dim',col:colorOf(n.lbl),text:labelOf(n,c)})}}
-    info=`<p>五個指型像拼圖一樣，從低把位到高把位依序是 <b style="color:var(--text)">${all.map(z=>z.letter).join(' → ')}</b>，然後循環。相鄰的兩個指型會共用根音，指板旁的彩色括號標出每個指型的範圍。</p>`;
+    title=`${rootName} · 整個指板`;
+    info=`從低把位到高把位依序是 <b>${all.map(z=>z.letter).join(' → ')}</b>。相鄰的指型共用根音，指板旁的彩色括號標出每個指型的範圍。`;
   }else{
-    const insts=cagedInstances(C.shape,t,minor),inst=insts[0];
-    const z=inst;zones.push({win:z.win,letter:z.letter,col:CCOL[z.letter]});
+    const insts=cagedInstances(C.shape,t,minor),z=insts[0];
+    zones.push({win:z.win,letter:z.letter,col:CCOL[z.letter]});
     insts.slice(1).forEach(o=>zones.push({win:o.win,letter:o.letter,col:CCOL[o.letter],lane:1}));
-    const inShape=new Set();inst.fr.forEach((f,s)=>{if(f!=null)inShape.add(s+'-'+f)});
-    for(const[s,f]of positions()){const p=pcAt(s,f),key=s+'-'+f;const inWin=f>=z.win[0]&&f<=z.win[1];
+    const inShape=new Set();z.fr.forEach((f,s)=>{if(f!=null)inShape.add(s+'-'+f)});
+    for(const[s,f]of positions()){const p=pcAt(s,f),key=s+'-'+f,inWin=f>=z.win[0]&&f<=z.win[1];
       if(inShape.has(key)){const n=cpc.get(p);marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',ring:true,text:labelOf(n,c)})}
       else if(inWin&&C.ov!=='none'&&ovMap.has(p)){const n=ovMap.get(p);marks.push({s,f,kind:cpc.has(p)?'main':'dim',col:colorOf(n.lbl),root:n.lbl==='1',text:labelOf(n,c)})}
       else if(cpc.has(p)&&C.ov!=='none'){const n=cpc.get(p);marks.push({s,f,kind:'ghost',text:labelOf(n,c)})}}
-    const pts=[];inst.fr.forEach((f,s)=>{if(f!=null)pts.push([s,f])});lines.push({pts,col:CCOL[C.shape],op:.55});
-    const i=CORDER.indexOf(C.shape),lo=Math.min(...inst.fr.filter(x=>x!=null));
-    info=`<p><b style="color:var(--text)">${rootName}${minor?'m':''} 的 ${C.shape} 指型・從第 ${lo} 品開始</b>。根音在${CAGED[C.shape].roots}。往高把位接 <b style="color:${CCOL[CORDER[(i+1)%5]]}">${CORDER[(i+1)%5]} 指型</b>，往低把位接 <b style="color:${CCOL[CORDER[(i+4)%5]]}">${CORDER[(i+4)%5]} 指型</b>。有金色外圈的是和弦按法，其餘是同一把位的${C.ov==='pent'?'五聲':minor?'小調':'大調'}音階。</p>
-    <div class="row"><button class="btn ghost" data-act="strumCaged">▶ 彈這個和弦</button></div>`;
-    RT.cagedMemo=inst.fr;
+    const pts=[];z.fr.forEach((f,s)=>{if(f!=null)pts.push([s,f])});lines.push({pts,col:CCOL[C.shape],op:.55});
+    const i=CORDER.indexOf(C.shape),lo=Math.min(...z.fr.filter(x=>x!=null)),up=CORDER[(i+1)%5],dn=CORDER[(i+4)%5];
+    title=`${rootName} · ${C.shape} 指型`;
+    info=`從第 <b>${lo}</b> 品開始，根音在${CAGED[C.shape].roots}。往高把位接 <b style="color:${CCOL[up]}">${up}</b>，往低把位接 <b style="color:${CCOL[dn]}">${dn}</b>。金色外圈是和弦按法。`;
+    RT.cagedMemo=z.fr;
     if(RT.scrollTo==='caged')RT.scrollTo=Math.round((z.win[0]+z.win[1])/2);
   }
-  panel.innerHTML=`<div class="row"><div class="seg"><button data-act="cMinor" data-v="0" ${pressed(!minor)}>大調 / 大三和弦</button><button data-act="cMinor" data-v="1" ${pressed(minor)}>小調 / 小三和弦</button></div></div>
-  <div class="row">${CORDER.map(L=>`<button class="chip" data-act="cShape" data-v="${L}" ${pressed(C.shape===L)} style="${C.shape===L?`border-color:${CCOL[L]};color:${CCOL[L]}`:''}"><b>${L}</b><small>指型</small></button>`).join('')}<button class="chip" data-act="cShape" data-v="all" ${pressed(C.shape==='all')}>全部五個</button></div>
-  <div class="row"><span style="font-size:13px;color:var(--muted)">疊加</span><div class="seg"><button data-act="cOv" data-v="none" ${pressed(C.ov==='none')}>只看和弦</button><button data-act="cOv" data-v="scale" ${pressed(C.ov==='scale')}>${minor?'小調':'大調'}音階</button><button data-act="cOv" data-v="pent" ${pressed(C.ov==='pent')}>五聲音階</button></div></div>
-  <h2>${rootName}${minor?'m':''} · CAGED<small>${C.shape==='all'?'整個指板':C.shape+' Shape'}</small></h2>${info}`;
-  panel2.innerHTML=`<div class="card"><h3>CAGED 是什麼</h3><p>C、A、G、E、D 是五個開放和弦。把它們做成可以移動的封閉和弦，就能在指板上任何地方彈出同一個和弦。按 C→A→G→E→D 的順序接起來，就會把整個指板分成五個區塊。每個和弦指型周圍都有一組對應的音階指型（大調音階或五聲音階），所以 <b style="color:var(--text)">和弦、音階、琶音三者用同一張地圖</b>。小調只要把大三度降半音（3 → ♭3）就是小和弦指型。</p></div>`;
+  panel.innerHTML=`<div class="headrow"><div class="grow"><span class="eyebrow">CAGED SYSTEM</span><span class="title">${title}</span></div>${C.shape!=='all'?`<button class="play" data-act="strumCaged" aria-label="彈奏">${PLAY}</button>`:''}</div>
+  <div class="shapes">${CORDER.map(L=>`<button class="shape" data-act="cShape" data-v="${L}" ${pressed(C.shape===L)} style="--c:${CCOL[L]}">${L}</button>`).join('')}<button class="shape all" data-act="cShape" data-v="all" ${pressed(C.shape==='all')}>全部</button></div>
+  <div class="row">${seg('cMinor',minor?1:0,[[0,'大調'],[1,'小調']])}${seg('cOv',C.ov,[['scale','音階'],['pent','五聲'],['none','只看和弦']])}</div>
+  <p class="lead">${info}</p>`;
+  panel2.innerHTML=`<div class="card"><h3>CAGED 是什麼</h3><p class="lead">C、A、G、E、D 五個開放和弦做成可移動的封閉和弦後，照 C→A→G→E→D 的順序接起來，剛好把指板切成五塊。每個和弦指型旁邊都有對應的大調和五聲音階指型，所以<b>和弦、音階、琶音用的是同一張地圖</b>。小調只要把 3 降成 ♭3。</p></div>`;
   renderMarks(marks,{zones,lines});
 }
 
@@ -507,222 +636,226 @@ function viewChord(){
   const t=S.key,tL=keyL(),type=S.chord.type,ch=CH(type),tones=chordTones(t,tL,type),c={t,tL};
   const vs=voicingsFor(t,type);if(S.chord.v>=vs.length)S.chord.v=0;const v=vs[S.chord.v];
   const stack=tones.slice(1).map((n,i)=>INT_ZH[mod(n.pc-tones[i].pc,12)]).join(' + ');
-  const groups=[...new Set(vs.map(x=>x.g))];
-  panel.innerHTML=`<div class="row">${CHORDS.map(x=>`<button class="chip" data-act="chType" data-v="${x.id}" ${pressed(x.id===type)}>${keyTitle()}${x.sym||''}${x.sym?'':'<small>maj</small>'}</button>`).join('')}</div>
-  <h2>${tones[0].name}${ch.sym}<small>${ch.zh}</small></h2>
-  <div class="degs">${tones.map(n=>`<div class="deg" style="--c:${colorOf(n.lbl)}"><span class="n">${fmt(n.lbl)}</span><span class="nm">${n.name}</span></div>`).join('')}</div>
-  <p>公式 <b style="color:var(--text)">${fmt(ch.f)}</b>，從根音往上疊：${stack}。${tones.length>4?'九和弦通常省略 5 音，所以只列出常用指型。':''}</p>
-  <div class="row"><label class="tog"><input type="checkbox" id="tAll" data-tog="chAll" ${S.chord.all?'checked':''}>同時顯示指板上所有和弦音</label><button class="btn ghost" data-act="strumV">▶ 彈奏</button></div>`;
-  panel2.innerHTML=`<div class="card"><h3>按法與轉位（${vs.length} 種）</h3>${groups.map(g=>`<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:var(--muted)">${g}</span><div class="row">${vs.map((x,i)=>x.g===g?`<button class="chip" data-act="chV" data-v="${i}" ${pressed(i===S.chord.v)}>${x.lab}</button>`:'').join('')}</div></div>`).join('')}
-  <p style="font-size:12px">三和弦轉位：同一個和弦換成 3 音或 5 音在最低，聲音更輕巧，是伴奏和第二把吉他的好用技巧。四條相鄰弦組合可以把整個指板連起來。</p></div>`;
+  panel.innerHTML=`<div class="headrow"><div class="grow"><span class="eyebrow">CHORD · ${ch.zh}</span>
+   <button class="title" data-act="sheet" data-v="chord">${tones[0].name}${ch.sym}${CHEV}</button></div>
+   <button class="play" data-act="strumV" aria-label="彈奏">${PLAY}</button></div>
+  <div class="dots">${tones.map(n=>`<div class="dot" style="--c:${colorOf(n.lbl)}"><span class="n">${fmt(n.lbl)}</span><span class="nm">${n.name}</span></div>`).join('')}</div>
+  <p class="lead">公式 <b>${fmt(ch.f)}</b>，從根音往上疊 ${stack}。${tones.length>4?'九和弦通常省略 5 音。':''}</p>
+  ${v?`<div class="stepper"><button data-act="chStep" data-v="-1" aria-label="上一個按法">${PREV}</button><div class="mid"><b>${v.lab}</b><span>${v.g}・${S.chord.v+1} / ${vs.length}</span></div><button data-act="chStep" data-v="1" aria-label="下一個按法">${NEXT}</button></div>`:''}
+  <div class="row">${seg('chAll',S.chord.all?1:0,[[1,'顯示全部和弦音'],[0,'只看這個按法']])}</div>`;
+  panel2.innerHTML=`<div class="card"><h3>按法怎麼看</h3><p class="lead">左右箭頭可以切換按法：先是開放和弦和 6 弦、5 弦根音的常用指型，接著是各弦組的<b>轉位</b>。轉位就是把 3 音或 5 音放在最低音，聲音比較輕巧，很適合伴奏或當第二把吉他。紅色 ✕ 代表那條弦不彈。</p></div>`;
   const map=new Map(tones.map(n=>[n.pc,n])),marks=[],inV=new Set(),pts=[],mutes=[];
-  if(v){v.fr.forEach((f,s)=>{if(f==null)mutes.push(s);else{inV.add(s+'-'+f);pts.push([s,f])}})}
+  if(v)v.fr.forEach((f,s)=>{if(f==null)mutes.push(s);else{inV.add(s+'-'+f);pts.push([s,f])}});
   for(const[s,f]of positions()){const p=pcAt(s,f),n=map.get(p);if(!n)continue;const isV=inV.has(s+'-'+f);
     if(isV)marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',ring:true,text:labelOf(n,c)});
-    else if(S.chord.all)marks.push({s,f,kind:'dim',col:colorOf(n.lbl),text:labelOf(n,c)});}
+    else if(S.chord.all)marks.push({s,f,kind:'dim',col:colorOf(n.lbl),text:labelOf(n,c)})}
   if(v&&RT.scrollTo==='v')RT.scrollTo=Math.round(avgF(v.fr));
   renderMarks(marks,{lines:pts.length?[{pts}]:[],mutes});
 }
 
-function curDia(){
-  const sc=SC(S.dia.mode);return buildDiatonic(sc,S.key,keyL(),S.dia.sev);
-}
+const curDia=()=>buildDiatonic(SC(S.dia.mode),S.key,keyL(),S.dia.sev);
 function progChords(){
-  const p=PROGS.find(x=>x.id===S.dia.prog),maj=SC('major');const dia=buildDiatonic(maj,S.key,keyL(),!!p.sev);
+  const p=PROGS.find(x=>x.id===S.dia.prog),dia=buildDiatonic(SC('major'),S.key,keyL(),!!p.sev);
   let prev=null;return p.seq.map(d=>{let ch=dia[d-1];if(p.dom)ch={...ch,type:'7',name:ch.root.name+'7',roman:['I','II','III','IV','V','VI','VII'][d-1]+'7',sym:'7'};
     const v=pickVoicing(ch.root.pc,ch.type,prev??4,S.dia.open);prev=v?avgF(v.fr):prev;return{...ch,v,deg:d}});
 }
 function viewDia(){
   const sc=SC(S.dia.mode),dia=curDia(),c=ctxFor(S.key,keyL(),sc),ns=scaleNotes(sc),nmap=new Map(ns.map(n=>[n.pc,n]));
-  const p=PROGS.find(x=>x.id===S.dia.prog);const pcs=progChords();
-  const playing=RT.play!=null;
-  let ch,v;
-  if(playing&&RT.playIdx>=0){ch=pcs[RT.playIdx];v=ch.v}else{ch=dia[S.dia.sel];v=pickVoicing(ch.root.pc,ch.type,5,S.dia.open)}
+  const p=PROGS.find(x=>x.id===S.dia.prog),pcs=progChords(),playing=RT.play!=null;
+  let ch,v;if(playing&&RT.playIdx>=0){ch=pcs[RT.playIdx];v=ch.v}else{ch=dia[S.dia.sel];v=pickVoicing(ch.root.pc,ch.type,5,S.dia.open)}
   RT.diaV=v;
   const tones=chordTones(ch.root.pc,ch.root.L,ch.type);
-  const FNZ={T:'主功能（穩定）',SD:'下屬功能（離開）',D:'屬功能（緊張、想回到 I）'};
-  // circle of fifths
-  const cof=[0,7,2,9,4,11,6,1,8,3,10,5],cx=120,cy=120;let cs='';
-  const idx=cof.indexOf(S.key);
-  cof.forEach((pc,i)=>{const a=(i*30-90)*Math.PI/180,rel=mod(i-idx+12,12);const near=rel===0||rel===1||rel===11;
-    const x=cx+Math.cos(a)*96,y=cy+Math.sin(a)*96,x2=cx+Math.cos(a)*62,y2=cy+Math.sin(a)*62;
-    const mi=FLAT_N[mod(pc+9,12)];const relMinor=(FLATPREF.has(pc)||pc===5)?FLAT_N[mod(pc+9,12)]:SHARP_N[mod(pc+9,12)];
-    cs+=`<g data-act="key" data-v="${pc}" style="cursor:pointer"><circle cx="${x}" cy="${y}" r="17" fill="${rel===0?'var(--gold)':near?'#3a2f14':'#1d1a14'}" stroke="${near?'var(--gold)':'#3a342a'}"/><text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="700" fill="${rel===0?'#1a1306':'var(--text)'}">${KEYS[pc][0]}</text>
-    <circle cx="${x2}" cy="${y2}" r="14" fill="${near?'#2a2414':'#16130f'}" stroke="${near?'var(--gold-lo)':'#2c271f'}"/><text x="${x2}" y="${y2}" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="${near?'var(--gold-hi)':'var(--muted)'}">${relMinor}m</text></g>`});
-  const sig=[0,-5,2,-3,4,-1,6,1,-4,3,-2,5][S.key];
-  cs+=`<text x="${cx}" y="${cy-6}" text-anchor="middle" font-size="11" fill="var(--muted)">調號</text><text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="16" font-weight="700" fill="var(--gold-hi)">${sig===0?'無升降':Math.abs(sig)+(sig>0?' 個 ♯':' 個 ♭')}</text>`;
-  panel.innerHTML=`<div class="row"><div class="seg"><button data-act="dMode" data-v="major" ${pressed(S.dia.mode==='major')}>大調</button><button data-act="dMode" data-v="minor" ${pressed(S.dia.mode==='minor')}>自然小調</button><button data-act="dMode" data-v="harm" ${pressed(S.dia.mode==='harm')}>和聲小調</button></div>
-   <div class="seg"><button data-act="dSev" data-v="0" ${pressed(!S.dia.sev)}>三和弦</button><button data-act="dSev" data-v="1" ${pressed(S.dia.sev)}>七和弦</button></div></div>
-  <h2>${ns[0].name} ${sc.zh} 順階和弦<small>Diatonic Chords</small></h2>
-  <div class="split"><div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-   <div class="grid7">${dia.map((d,i)=>`<button class="dc ${playing&&ch.root.pc===d.root.pc&&ch.type===d.type?'playing':''}" data-act="dSel" data-v="${i}" ${pressed(!playing&&i===S.dia.sel)}><span class="rn">${d.roman}</span><span class="cn">${d.name}</span><span class="fn">${d.num}${d.sym?'<small>'+d.sym+'</small>':''}・${d.fn}</span></button>`).join('')}</div>
-   <p><b style="color:var(--text)">${ch.roman} ・ ${ch.name}</b>　組成音 ${tones.map(n=>n.name).join('・')}（調內級數 ${tones.map(n=>fmt((nmap.get(n.pc)||{lbl:CHROM[mod(n.pc-S.key,12)]}).lbl)).join('・')}）${ch.fn?'・'+FNZ[ch.fn]:''}</p>
-   <div class="row"><label class="tog"><input type="checkbox" id="tOpen" data-tog="dOpen" ${S.dia.open?'checked':''}>優先用開放和弦</label><label class="tog"><input type="checkbox" id="tScale" data-tog="dScale" ${S.dia.scale?'checked':''}>顯示其他音階音</label></div>
-   <p style="font-size:12px">規則：大調是「大 小 小 大 大 小 減」。小調是「小 減 大 小 小 大 大」。和聲小調把第 7 音升高，V 就變成大三和弦或屬七，有了真正的終止感。</p>
-  </div><svg class="cof" viewBox="0 0 240 240" role="img" aria-label="五度圈">${cs}</svg></div>`;
-  panel2.innerHTML=`<div class="card"><h3>和弦進行（${keyTitle()} 大調）</h3>
-   <div class="row">${PROGS.map(x=>`<button class="chip" data-act="prog" data-v="${x.id}" ${pressed(x.id===S.dia.prog)}>${x.name}<small>${x.zh}</small></button>`).join('')}</div>
+  const FNZ={T:'主功能・穩定',SD:'下屬功能・離開',D:'屬功能・想回到 I'};
+  panel.innerHTML=`<div class="headrow"><div class="grow"><span class="eyebrow">DIATONIC CHORDS</span><span class="title">${ns[0].name} ${sc.zh}</span></div></div>
+  <div class="row">${seg('dMode',S.dia.mode,[['major','大調'],['minor','自然小調'],['harm','和聲小調']])}${seg('dSev',S.dia.sev?1:0,[[0,'三和弦'],[1,'七和弦']])}</div>
+  <div class="grid7">${dia.map((d,i)=>`<button class="dc ${playing&&ch.root.pc===d.root.pc&&ch.type===d.type?'playing':''}" data-act="dSel" data-v="${i}" ${pressed(!playing&&i===S.dia.sel)}><span class="rn">${d.roman}</span><span class="cn">${d.name}</span><span class="fn">${d.fn}</span></button>`).join('')}</div>
+  <p class="lead"><b>${ch.roman}・${ch.name}</b>　${tones.map(n=>n.name).join(' ')}（${tones.map(n=>fmt((nmap.get(n.pc)||{lbl:CHROM[mod(n.pc-S.key,12)]}).lbl)).join(' ')} 級）${ch.fn?'・'+FNZ[ch.fn]:''}</p>
+  <div class="card"><h3>和弦進行・${keyTitle()} 大調</h3>
+   <div class="headrow"><button class="title" style="font-size:21px" data-act="sheet" data-v="prog">${p.name}${CHEV}</button><span style="flex:1"></span><button class="play" data-act="play" aria-label="${playing?'停止':'播放'}">${playing?STOP:PLAY}</button></div>
    <div class="seq">${pcs.map((x,i)=>`<span class="${i===RT.playIdx?'on':''}">${x.name}</span>`).join('')}</div>
-   <div class="row"><button class="btn" data-act="play">${playing?'■ 停止':'▶ 播放進行'}</button><label class="tog">速度 <input type="range" id="bpm" min="50" max="160" value="${S.dia.bpm}" data-input="bpm"> <span id="bpmV">${S.dia.bpm}</span> BPM</label></div>
-   <p style="font-size:12px">播放時指板會跟著換和弦，並選擇離上一個和弦最近的按法，讓你看到「同把位換和弦」的路線。把數字記住，就能在任何調套用：例如 1-6-4-5 在 G 調是 G-Em-C-D。</p></div>`;
+   <div class="tempo"><button data-act="bpm" data-v="-8" aria-label="慢一點">−</button><span id="bpmV">${S.dia.bpm}</span> BPM<button data-act="bpm" data-v="8" aria-label="快一點">+</button><span style="margin-left:auto">${p.zh}</span></div></div>`;
+  panel2.innerHTML=`<div class="card"><h3>規則</h3><p class="lead">大調的三和弦是「大 小 小 大 大 小 減」，小調是「小 減 大 小 小 大 大」。和聲小調把第 7 音升高，V 就變成大三和弦，有了真正的終止感。記住級數就能套用到任何調，例如 1-6-4-5 在 G 調是 G-Em-C-D。</p></div>`;
   const tmap=new Map(tones.map(n=>[n.pc,n])),marks=[],inV=new Set(),pts=[],mutes=[];
   if(v)v.fr.forEach((f,s)=>{if(f==null)mutes.push(s);else{inV.add(s+'-'+f);pts.push([s,f])}});
-  for(const[s,f]of positions()){const p=pcAt(s,f);const kn=nmap.get(p)||{pc:p,lbl:CHROM[mod(p-S.key,12)]};
-    if(tmap.has(p)){const isV=inV.has(s+'-'+f);marks.push({s,f,kind:isV?'main':'dim',col:colorOf(kn.lbl),root:p===ch.root.pc&&isV,ring:isV,text:labelOf(kn,c),small:!isV})}
-    else if(S.dia.scale&&nmap.has(p))marks.push({s,f,kind:'ghost',text:labelOf(kn,c)})}
+  for(const[s,f]of positions()){const pc=pcAt(s,f),kn=nmap.get(pc)||{pc,lbl:CHROM[mod(pc-S.key,12)]};
+    if(tmap.has(pc)){const isV=inV.has(s+'-'+f);marks.push({s,f,kind:isV?'main':'dim',col:colorOf(kn.lbl),root:pc===ch.root.pc&&isV,ring:isV,text:labelOf(kn,c),small:!isV})}
+    else if(S.dia.scale&&nmap.has(pc))marks.push({s,f,kind:'ghost',text:labelOf(kn,c)})}
   renderMarks(marks,{lines:pts.length?[{pts}]:[],mutes});
 }
 
 function viewQuiz(){
-  const sc=SC(S.scale),ns=scaleNotes(sc),c=ctxFor(S.key,keyL(),sc),Q=S.quiz;
+  const sc=SC(S.scale),ns=scaleNotes(sc),Q=S.quiz;
   if(Q.mode==='deg'&&!RT.q)newQ();if(Q.mode==='find'&&!RT.find)newFind();
-  const acc=RT.total?Math.round(RT.score/RT.total*100):0;
-  let body='';
+  const acc=RT.total?Math.round(RT.score/RT.total*100):0;let body='';
   if(Q.mode==='deg'){
-    const opts=Q.ans==='deg'?ns.map(n=>({v:n.pc,t:fmt(n.lbl)})):Array.from({length:12},(_,i)=>({v:mod(S.key+i,12),t:nameOfPc(mod(S.key+i,12))}));
-    const q=RT.q;
-    body=`<p class="msg">${q.res==='ok'?'答對了！':q.res==='bad'?`答案是 ${Q.ans==='deg'?fmt(q.n.lbl):q.n.name}`:`閃爍的位置是${Q.ans==='deg'?'第幾級':'什麼音'}？（第 ${6-q.s} 弦・第 ${q.f} 品）`}</p>
-    <div class="answers">${opts.map(o=>`<button class="chip ${q.res&&o.v===q.n.pc?'ok':''} ${q.res==='bad'&&o.v===q.pick?'bad':''}" data-act="ans" data-v="${o.v}">${o.t}</button>`).join('')}</div>`;
-  }else{
-    const F=RT.find;body=`<p class="msg">${F.done?'全部找到了！':`在第 0–${Q.range} 品之間找出所有的「${Q.ans==='deg'?fmt(F.n.lbl):F.n.name}」`}　<span style="color:var(--muted);font-weight:400">${F.found.size} / ${F.total}</span></p>
-    <div class="row"><button class="btn ghost" data-act="reveal">顯示答案</button><button class="btn" data-act="nextFind">下一題</button></div>`;
-  }
-  panel.innerHTML=`<div class="row"><div class="seg"><button data-act="qMode" data-v="deg" ${pressed(Q.mode==='deg')}>認位置</button><button data-act="qMode" data-v="find" ${pressed(Q.mode==='find')}>找音</button></div>
-   <div class="seg"><button data-act="qAns" data-v="deg" ${pressed(Q.ans==='deg')}>級數</button><button data-act="qAns" data-v="name" ${pressed(Q.ans==='name')}>音名</button></div>
-   <div class="seg"><button data-act="qRange" data-v="5" ${pressed(Q.range===5)}>0–5 品</button><button data-act="qRange" data-v="12" ${pressed(Q.range===12)}>0–12</button><button data-act="qRange" data-v="22" ${pressed(Q.range===22)}>全部</button></div></div>
-  <h2>${ns[0].name} ${sc.zh}・練習<small>題目從「音階」分頁選的音階出題</small></h2>
+    const opts=Q.ans==='deg'?ns.map(n=>({v:n.pc,t:fmt(n.lbl)})):Array.from({length:12},(_,i)=>({v:mod(S.key+i,12),t:nameOfPc(mod(S.key+i,12))}));const q=RT.q;
+    body=`<p class="msg">${q.res==='ok'?'答對了！':q.res==='bad'?`答案是 ${Q.ans==='deg'?fmt(q.n.lbl):q.n.name}`:`閃爍的位置是${Q.ans==='deg'?'第幾級':'什麼音'}？`}<span style="color:var(--muted);font-weight:400">　第 ${6-q.s} 弦・第 ${q.f} 品</span></p>
+    <div class="answers">${opts.map(o=>`<button class="${q.res&&o.v===q.n.pc?'ok':''} ${q.res==='bad'&&o.v===q.pick?'bad':''}" data-act="ans" data-v="${o.v}">${o.t}</button>`).join('')}</div>`;
+  }else{const F=RT.find;body=`<p class="msg">${F.done?'全部找到了！':`在指板上點出所有的「${Q.ans==='deg'?fmt(F.n.lbl):F.n.name}」`}<span style="color:var(--muted);font-weight:400">　${F.found.size} / ${F.total}</span></p>
+    <div class="row"><button class="ghostbtn" data-act="reveal">看答案</button><button class="goldbtn" data-act="nextFind">下一題</button></div>`}
+  panel.innerHTML=`<div class="headrow"><div class="grow"><span class="eyebrow">PRACTICE</span><span class="title">${ns[0].name} ${sc.zh}</span></div></div>
+  <div class="row">${seg('qMode',Q.mode,[['deg','認位置'],['find','找音']])}<button class="pill" data-act="sheet" data-v="quiz">${Q.ans==='deg'?'答級數':'答音名'}・${Q.range===22?'全指板':'0–'+Q.range+' 品'}<small>設定</small></button></div>
   <div class="stat"><div><b>${RT.score}</b><span>答對</span></div><div><b>${RT.total}</b><span>題數</span></div><div><b>${acc}%</b><span>正確率</span></div><div><b>${RT.streak}</b><span>連對</span></div></div>${body}`;
-  panel2.innerHTML=`<div class="card"><h3>練習建議</h3><p>每天 5 分鐘。先在 0–5 品練熟，再擴大到 12 品。「認位置」訓練看到格子就知道是幾級，「找音」訓練用八度指型很快找到同一個音。先練級數，再練音名，兩種都熟了，換調就不用重背。</p></div>`;
+  panel2.innerHTML=`<div class="card"><h3>練習建議</h3><p class="lead">每天 5 分鐘就好。先在 0–5 品練熟再擴大範圍。題目用「音階」頁選的音階出題，換調後級數的位置跟著移動，形狀不變。</p></div>`;
   const marks=[];
-  if(Q.mode==='deg'){const q=RT.q;if(q.res){marks.push({s:q.s,f:q.f,kind:'main',col:q.res==='ok'?'var(--ok)':colorOf(q.n.lbl),root:false,ring:true,text:Q.ans==='deg'?fmt(q.n.lbl):q.n.name})}else marks.push({s:q.s,f:q.f,kind:'q'})}
+  if(Q.mode==='deg'){const q=RT.q;if(q.res)marks.push({s:q.s,f:q.f,kind:'main',col:q.res==='ok'?'var(--ok)':colorOf(q.n.lbl),ring:true,text:Q.ans==='deg'?fmt(q.n.lbl):q.n.name});else marks.push({s:q.s,f:q.f,kind:'q'})}
   else{const F=RT.find;for(const[s,f]of positions(Q.range)){const k=s+'-'+f;if(F.found.has(k)||F.reveal&&pcAt(s,f)===F.n.pc)marks.push({s,f,kind:F.found.has(k)?'main':'dim',col:colorOf(F.n.lbl),root:F.n.lbl==='1',text:Q.ans==='deg'?fmt(F.n.lbl):F.n.name})}
     F.wrong.forEach(([s,f])=>marks.push({s,f,kind:'bad'}))}
   renderMarks(marks,{zones:[{win:[0,Q.range],letter:'練',col:'#5c4b22'}]});
 }
-function newQ(){const sc=SC(S.scale),ns=scaleNotes(sc),map=new Map(ns.map(n=>[n.pc,n]));const pool=[...positions(S.quiz.range)].filter(([s,f])=>map.has(pcAt(s,f)));
+function newQ(){const ns=scaleNotes(SC(S.scale)),map=new Map(ns.map(n=>[n.pc,n]));const pool=[...positions(S.quiz.range)].filter(([s,f])=>map.has(pcAt(s,f)));
   let p;do{p=pool[Math.floor(Math.random()*pool.length)]}while(RT.q&&pool.length>1&&p[0]===RT.q.s&&p[1]===RT.q.f);RT.q={s:p[0],f:p[1],n:map.get(pcAt(p[0],p[1])),res:null}}
 function newFind(){const ns=scaleNotes(SC(S.scale));let n;do{n=ns[Math.floor(Math.random()*ns.length)]}while(RT.find&&ns.length>1&&n.pc===RT.find.n.pc);
   const total=[...positions(S.quiz.range)].filter(([s,f])=>pcAt(s,f)===n.pc).length;RT.find={n,found:new Set(),wrong:[],total,done:false,reveal:false}}
 
 function viewLearn(){
   const t=S.key,tL=keyL(),ns=scaleNotes(SC('major')),c={t,tL};
-  const demos=[['naturals','自然音（全部 C D E F G A B）'],['octaves','八度指型'],['unison','第 5 品規則（同音）'],['intervals','音程形狀'],['triads135','1・3・5 骨架']];
-  panel.innerHTML=`<h2>樂理筆記<small>點按鈕會把例子畫在下方的指板上</small></h2>
-  <div class="row">${demos.map(([k,l])=>`<button class="chip" data-act="demo" data-v="${k}" ${pressed(S.learn===k)}>${l}</button>`).join('')}</div>
-  <p id="demoText"></p>`;
+  const demos=[['naturals','自然音'],['octaves','八度指型'],['unison','第 5 品規則'],['intervals','音程形狀'],['triads135','1・3・5 骨架']];
+  panel.innerHTML=`<div class="headrow"><div class="grow"><span class="eyebrow">THEORY NOTES</span><span class="title">樂理筆記</span></div></div>
+  <div class="scroller">${demos.map(([k,l])=>`<button class="pill" data-act="demo" data-v="${k}" ${pressed(S.learn===k)}>${l}</button>`).join('')}</div>
+  <p class="lead" id="demoText"></p><p class="hint">完整筆記在指板下方。</p>`;
   const iv=INT_ZH.map((z,i)=>`<tr><td>${i}</td><td>${z}</td><td>${INT_NAME[i]}</td><td>${fmt(CHROM[i])}</td><td>${['同一格','同弦 +1 格','同弦 +2 格','下一弦 −2 格','下一弦 −1 格','下一弦同一格','下一弦 +1 格','下一弦 +2 格','隔一弦 −2 格','隔一弦 −1 格','隔一弦同一格','隔一弦 +1 格'][i]}</td></tr>`).join('');
   panel2.innerHTML=`<div class="learn">
   <div class="card"><h3>1・認識指板</h3><ul>
-   <li>標準調音由低到高是 <b>E A D G B E</b>（第 6 到第 1 弦）。</li><li>每一格是一個<b>半音</b>，第 12 品就是空弦的<b>高八度</b>，之後的音名重複。</li>
-   <li>自然音之間只有 <b>E–F</b> 和 <b>B–C</b> 是半音，其他都隔一格。</li>
-   <li><b>第 5 品規則</b>：任一弦的第 5 品 = 下一條弦的空弦。<b>G 弦例外是第 4 品</b>（因為 G→B 是大三度）。</li>
-   <li>先背第 6、5 弦的音名，其他弦用八度指型推出來，最省力。</li></ul></div>
+   <li>標準調音由低到高是 <b>E A D G B E</b>（第 6 到第 1 弦）。</li><li>每一格是一個<b>半音</b>，第 12 品是空弦的<b>高八度</b>。</li>
+   <li>自然音之間只有 <b>E–F</b> 和 <b>B–C</b> 是半音。</li>
+   <li><b>第 5 品規則</b>：任一弦的第 5 品等於下一條弦的空弦，<b>只有 G 弦是第 4 品</b>。</li>
+   <li>先背第 6、5 弦的音名，其他弦用八度指型推出來。</li></ul></div>
   <div class="card"><h3>2・八度指型</h3><ul>
-   <li>第 6 弦 → 第 4 弦：<b>隔一弦、往高 2 格</b>。第 5 弦 → 第 3 弦也一樣。</li>
-   <li>第 4 弦 → 第 2 弦、第 3 弦 → 第 1 弦：<b>隔一弦、往高 3 格</b>（越過 B 弦要多 1 格）。</li>
-   <li>第 6 弦和第 1 弦同一格就是同名音（差兩個八度）。</li></ul></div>
-  <div class="card"><h3>3・音程（下一弦以 6→3 弦組計）</h3><div class="tbl"><table><tr><th>半音</th><th>名稱</th><th>代號</th><th>級數</th><th>指板形狀</th></tr>${iv}</table></div><p style="font-size:12px">跨到 B 弦（第 2 弦）時，表中的「下一弦」形狀要往高多 1 格。</p></div>
-  <div class="card"><h3>4・大調音階與調號</h3><ul><li>公式是 <b>全 全 半 全 全 全 半</b>，也就是 1 2 3 4 5 6 7，在 3–4 和 7–1 之間是半音。</li>
-   <li>簡譜 1234567 = Do Re Mi Fa Sol La Si。<b>首調</b>是把主音當 1，換調時指型和級數不變，只是整個往上或往下移。</li>
-   <li>五度圈順時針每次加一個 ♯（G、D、A…），逆時針每次加一個 ♭（F、B♭、E♭…）。</li>
-   <li>關係小調 = 大調的第 6 級（C 大調 ↔ A 小調），兩者用同一組音。</li></ul></div>
-  <div class="card"><h3>5・和弦怎麼組成</h3><ul>
-   <li>和弦 = <b>三度堆疊</b>：根音上疊一個三度，再疊一個三度。</li>
-   <li>大三 = 大三度 + 小三度（1 3 5）。小三 = 小三度 + 大三度（1 ♭3 5）。減三 = 小三 + 小三（1 ♭3 ♭5）。增三 = 大三 + 大三（1 3 ♯5）。</li>
-   <li>再疊一個三度就是七和弦：maj7（1 3 5 7）、7（1 3 5 ♭7）、m7（1 ♭3 5 ♭7）、m7♭5（1 ♭3 ♭5 ♭7）、dim7（1 ♭3 ♭5 𝄫7）。</li>
-   <li>sus 和弦用 2 或 4 取代 3 度，所以聽不出大小調。add9 是三和弦加上 9（就是高八度的 2）。</li>
-   <li>和弦的大小調由 <b>3 度</b>決定，色彩由 <b>7 度和延伸音</b>決定。</li></ul></div>
+   <li>第 6 → 4 弦、第 5 → 3 弦：<b>隔一弦、往高 2 格</b>。</li>
+   <li>第 4 → 2 弦、第 3 → 1 弦：<b>隔一弦、往高 3 格</b>（越過 B 弦多 1 格）。</li>
+   <li>第 6 弦和第 1 弦同一格是同名音。</li></ul></div>
+  <div class="card"><h3>3・音程</h3><div class="tbl"><table><tr><th>半音</th><th>名稱</th><th>代號</th><th>級數</th><th>指板形狀</th></tr>${iv}</table></div><p class="hint">跨到 B 弦時，「下一弦」的形狀要往高多 1 格。</p></div>
+  <div class="card"><h3>4・大調音階與調號</h3><ul><li>公式 <b>全 全 半 全 全 全 半</b>，3–4 和 7–1 是半音。</li>
+   <li>1234567 = Do Re Mi Fa Sol La Si。<b>首調</b>把主音當 1，換調時形狀不變，整個平移。</li>
+   <li>五度圈順時針每次多一個 ♯，逆時針每次多一個 ♭。</li><li>關係小調 = 大調第 6 級，兩者同一組音。</li></ul></div>
+  <div class="card"><h3>5・和弦組成</h3><ul>
+   <li>和弦 = <b>三度堆疊</b>。</li><li>大三 = 大三度 + 小三度（1 3 5）；小三 = 小三度 + 大三度（1 ♭3 5）；減三 1 ♭3 ♭5；增三 1 3 ♯5。</li>
+   <li>七和弦：maj7（1 3 5 7）、7（1 3 5 ♭7）、m7（1 ♭3 5 ♭7）、m7♭5（1 ♭3 ♭5 ♭7）、dim7（1 ♭3 ♭5 𝄫7）。</li>
+   <li>sus 用 2 或 4 取代 3 度；add9 是三和弦加 9。</li><li>大小調看 <b>3 度</b>，色彩看 <b>7 度與延伸音</b>。</li></ul></div>
   <div class="card"><h3>6・CAGED 系統</h3><ul>
-   <li>五個開放和弦 C、A、G、E、D 可以移動到任何把位，順序永遠是 <b>C → A → G → E → D → C</b>。</li>
-   <li>根音位置：C 在 5、2 弦；A 在 5、3 弦；G 在 6、3、1 弦；E 在 6、4、1 弦；D 在 4、2 弦。</li>
-   <li>相鄰的指型會<b>共用根音</b>，練習時用共同音來換把位。</li>
-   <li>每個和弦指型都對應一個大調音階指型和一個五聲音階指型。</li>
-   <li>限制：只適用標準調音。進階可以接著學三音一弦（3NPS）音階和三和弦轉位。</li></ul></div>
+   <li>順序永遠是 <b>C → A → G → E → D → C</b>。</li>
+   <li>根音：C 在 5、2 弦；A 在 5、3 弦；G 在 6、3、1 弦；E 在 6、4、1 弦；D 在 4、2 弦。</li>
+   <li>相鄰指型<b>共用根音</b>，用它來換把位。</li><li>只適用標準調音；進階可接三音一弦音階和三和弦轉位。</li></ul></div>
   <div class="card"><h3>7・順階和弦與功能</h3><ul>
-   <li>大調：<b>I ii iii IV V vi vii°</b>（大 小 小 大 大 小 減）。</li>
-   <li>七和弦：Imaj7 ii7 iii7 IVmaj7 V7 vi7 viiø7。</li>
-   <li>小調：i ii° ♭III iv v ♭VI ♭VII。和聲小調讓 V 變成 V7。</li>
-   <li>功能：<b>主 T</b>（I、iii、vi）穩定，<b>下屬 SD</b>（ii、IV）離開，<b>屬 D</b>（V、vii°）緊張、想回到 I。</li>
-   <li>常見進行：1-6-4-5、1-5-6-4、卡農 1-5-6-3-4-1-4-5、4-5-3-6-2-5-1、爵士 2-5-1。</li></ul></div>
-  <div class="card"><h3>8・調式 Modes</h3><div class="tbl"><table><tr><th>調式</th><th>從大調第幾級</th><th>公式</th><th>特色音</th></tr>
+   <li>大調 <b>I ii iii IV V vi vii°</b>；七和弦 Imaj7 ii7 iii7 IVmaj7 V7 vi7 viiø7。</li>
+   <li>小調 i ii° ♭III iv v ♭VI ♭VII；和聲小調讓 V 變成 V7。</li>
+   <li><b>主 T</b>（I iii vi）穩定、<b>下屬 SD</b>（ii IV）離開、<b>屬 D</b>（V vii°）想回家。</li></ul></div>
+  <div class="card"><h3>8・調式 Modes</h3><div class="tbl"><table><tr><th>調式</th><th>大調第幾級</th><th>公式</th><th>特色音</th></tr>
    ${[['Ionian 大調','1','1 2 3 4 5 6 7','—'],['Dorian','2','1 2 ♭3 4 5 6 ♭7','6'],['Phrygian','3','1 ♭2 ♭3 4 5 ♭6 ♭7','♭2'],['Lydian','4','1 2 3 ♯4 5 6 7','♯4'],['Mixolydian','5','1 2 3 4 5 6 ♭7','♭7'],['Aeolian 小調','6','1 2 ♭3 4 5 ♭6 ♭7','♭6'],['Locrian','7','1 ♭2 ♭3 4 ♭5 ♭6 ♭7','♭5']].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div></div>
-  <div class="card"><h3>9・建議學習路線</h3><ul>
-   <li><b>第 1 週</b>：背第 6、5 弦自然音，練八度指型，用「練習」分頁的 0–5 品。</li>
-   <li><b>第 2 週</b>：大調音階的 1 3 5 位置，在「音階」分頁隱藏其他級數。</li>
-   <li><b>第 3–4 週</b>：CAGED 五指型，一天一個，最後連成整條琴頸。</li>
-   <li><b>第 5 週</b>：順階和弦和 1-6-4-5、2-5-1，在三個把位各彈一次。</li>
-   <li><b>第 6 週</b>：小調五聲和藍調音階的五個指型，對照 CAGED 小調。</li>
-   <li>之後：三和弦轉位、調式、七和弦琶音。</li></ul></div>
+  <div class="card"><h3>9・六週學習路線</h3><ul>
+   <li><b>第 1 週</b>：第 6、5 弦音名與八度指型。</li><li><b>第 2 週</b>：大調音階的 1・3・5 位置。</li>
+   <li><b>第 3–4 週</b>：CAGED 五指型，一天一個。</li><li><b>第 5 週</b>：順階和弦、1-6-4-5、2-5-1。</li>
+   <li><b>第 6 週</b>：小調五聲與藍調音階。之後學三和弦轉位、調式、七和弦琶音。</li></ul></div>
   <div class="card src"><h3>參考資料</h3><ul>
    <li><a href="https://justinguitar.com/guitar-lessons/TB-031" target="_blank" rel="noopener">JustinGuitar – The CAGED System Introduction</a></li>
    <li><a href="https://www.premierguitar.com/lessons/caged/the-caged-blueprint-guitar" target="_blank" rel="noopener">Premier Guitar – The CAGED Blueprint</a></li>
-   <li><a href="https://www.guitarworld.com/lessons/learn-the-caged-guitar-system-in-10-minutes" target="_blank" rel="noopener">Guitar World – Learn the CAGED system in 10 minutes</a></li>
-   <li><a href="https://www.daddario.com/en-au/blogs/guitar/guitarists-guide-to-the-caged-system" target="_blank" rel="noopener">D’Addario – Guitarist’s Guide to the CAGED System</a></li>
+   <li><a href="https://www.guitarworld.com/lessons/learn-the-caged-guitar-system-in-10-minutes" target="_blank" rel="noopener">Guitar World – CAGED in 10 minutes</a></li>
+   <li><a href="https://www.daddario.com/en-au/blogs/guitar/guitarists-guide-to-the-caged-system" target="_blank" rel="noopener">D’Addario – Guide to the CAGED System</a></li>
    <li><a href="https://www.fender.com/articles/how-to/major-guitar-scales" target="_blank" rel="noopener">Fender – Major Guitar Scales</a></li>
-   <li><a href="https://www.fachords.com/fretboard-intervals/" target="_blank" rel="noopener">FaChords – Guitar Fretboard Intervals</a></li>
+   <li><a href="https://www.fachords.com/fretboard-intervals/" target="_blank" rel="noopener">FaChords – Fretboard Intervals</a></li>
    <li><a href="https://guitarworld.com/lessons/learning-major-triads-all-over-neck" target="_blank" rel="noopener">Guitar World – Major Triads All Over the Neck</a></li>
-   <li><a href="https://www.pickupmusic.com/blog/mastering-triad-shapes-on-the-guitar-applying-the-caged-system" target="_blank" rel="noopener">Pickup Music – Triad Shapes &amp; CAGED</a></li>
-   <li><a href="https://musictheory.pugetsound.edu/mt21c/RomanNumeralsOfDiatonicSeventhChords.html" target="_blank" rel="noopener">Music Theory for the 21st-Century Classroom – Diatonic Seventh Chords</a></li>
-   <li><a href="https://flypaper.soundfly.com/play/the-basics-of-the-dorian-mode-for-guitar/" target="_blank" rel="noopener">Soundfly – The Basics of the Dorian Mode</a></li>
-   <li><a href="https://hubguitar.com/zh_han/fretboard/caged-guitar-chords-system" target="_blank" rel="noopener">Hub Guitar（中文）– CAGED System</a></li>
-   <li><a href="https://www.bilibili.com/opus/1021804158914658311" target="_blank" rel="noopener">Bilibili – 吉他樂理入門整理</a></li></ul></div>
-  </div>`;
-  const marks=[],lines=[],kd=S.learn;let txt='';
-  const map=new Map(ns.map(n=>[n.pc,n]));
-  if(kd==='naturals'){const cn=scaleNotes(SC('major'),0,0),cm=new Map(cn.map(n=>[n.pc,n]));for(const[s,f]of positions()){const n=cm.get(pcAt(s,f));if(n)marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',text:n.name})}
-    txt='所有自然音（鋼琴白鍵）。注意 E–F、B–C 中間沒有空格，第 12 品之後整個重複。';}
-  else if(kd==='octaves'){const r=mod(t-4,12);for(const[s,f]of positions()){if(pcAt(s,f)===t)marks.push({s,f,kind:'main',root:true,text:ns[0].name})}
-    for(const base of [r,r+12]){if(base+5>NF)continue;lines.push({pts:[[0,base],[2,base+2]],col:'var(--d5)',op:.8,w:3},{pts:[[2,base+2],[4,base+5]],col:'var(--d6)',op:.8,w:3})}
-    const r5=mod(t-9,12);for(const base of [r5,r5+12]){if(base+5>NF)continue;lines.push({pts:[[1,base],[3,base+2]],col:'var(--d4)',op:.8,w:3,dash:true},{pts:[[3,base+2],[5,base+5]],col:'var(--d2)',op:.8,w:3,dash:true})}
-    txt=`所有的 ${ns[0].name}。實線是從第 6 弦出發（+2 格，再 +3 格），虛線從第 5 弦出發。`;}
-  else if(kd==='unison'){for(let s=0;s<5;s++){const f=s===3?4:5;for(const base of [0,12]){if(base+f>NF)continue;const n={pc:pcAt(s,base+f),lbl:CHROM[mod(pcAt(s,base+f)-t,12)]};
-      marks.push({s,f:base+f,kind:'main',col:colorOf(n.lbl),text:nameOfPc(n.pc)},{s:s+1,f:base,kind:'main',col:colorOf(n.lbl),text:nameOfPc(n.pc)});lines.push({pts:[[s,base+f],[s+1,base]],op:.6,w:3})}}
-    txt='每條弦的第 5 品等於下一條弦的空弦，只有 G 弦是第 4 品。這就是調音和找同音的依據。';}
-  else if(kd==='intervals'){let r=mod(t-9,12);if(r<2)r+=12;const root={s:1,f:r};
+   <li><a href="https://musictheory.pugetsound.edu/mt21c/RomanNumeralsOfDiatonicSeventhChords.html" target="_blank" rel="noopener">Puget Sound – Diatonic Seventh Chords</a></li>
+   <li><a href="https://flypaper.soundfly.com/play/the-basics-of-the-dorian-mode-for-guitar/" target="_blank" rel="noopener">Soundfly – The Dorian Mode</a></li>
+   <li><a href="https://hubguitar.com/zh_han/fretboard/caged-guitar-chords-system" target="_blank" rel="noopener">Hub Guitar（中文）– CAGED</a></li></ul></div></div>`;
+  const marks=[],lines=[],kd=S.learn;let txt='';const map=new Map(ns.map(n=>[n.pc,n]));
+  if(kd==='naturals'){const cm=new Map(scaleNotes(SC('major'),0,0).map(n=>[n.pc,n]));for(const[s,f]of positions()){const n=cm.get(pcAt(s,f));if(n)marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',text:n.name})}
+    txt='所有自然音（鋼琴白鍵）。E–F、B–C 中間沒有空格，第 12 品之後整個重複。';}
+  else if(kd==='octaves'){const r=mod(t-4,12);for(const[s,f]of positions())if(pcAt(s,f)===t)marks.push({s,f,kind:'main',root:true,text:ns[0].name});
+    for(const b of[r,r+12])if(b+5<=NF)lines.push({pts:[[0,b],[2,b+2]],col:'var(--d5)',op:.8,w:3},{pts:[[2,b+2],[4,b+5]],col:'var(--d6)',op:.8,w:3});
+    const r5=mod(t-9,12);for(const b of[r5,r5+12])if(b+5<=NF)lines.push({pts:[[1,b],[3,b+2]],col:'var(--d4)',op:.8,w:3,dash:true},{pts:[[3,b+2],[5,b+5]],col:'var(--d2)',op:.8,w:3,dash:true});
+    txt=`所有的 ${ns[0].name}。實線從第 6 弦出發（+2 格、再 +3 格），虛線從第 5 弦出發。`;}
+  else if(kd==='unison'){for(let s=0;s<5;s++){const f=s===3?4:5;for(const b of[0,12]){if(b+f>NF)continue;const pc=pcAt(s,b+f),lbl=CHROM[mod(pc-t,12)];
+      marks.push({s,f:b+f,kind:'main',col:colorOf(lbl),text:nameOfPc(pc)},{s:s+1,f:b,kind:'main',col:colorOf(lbl),text:nameOfPc(pc)});lines.push({pts:[[s,b+f],[s+1,b]],op:.6,w:3})}}
+    txt='每條弦的第 5 品等於下一條弦的空弦，只有 G 弦是第 4 品。';}
+  else if(kd==='intervals'){let r=mod(t-9,12);if(r<2)r+=12;
     for(let s=1;s<=3;s++)for(let f=r-2;f<=r+4;f++){if(f<0)continue;const semi=TUNING[s]+f-(TUNING[1]+r);if(semi<0||semi>12)continue;marks.push({s,f,kind:semi===0?'main':'dim',root:semi===0,col:semi===0?null:colorOf(CHROM[semi%12]),text:semi===12?'8va':INT_NAME[semi]})}
-    txt=`以第 5 弦第 ${r} 品的 ${ns[0].name} 為根音，往上一個八度內的所有音程。M3 在「下一弦往回 1 格」，P5 在「下一弦往前 2 格」，這兩個形狀最重要。`;}
-  else if(kd==='triads135'){for(const[s,f]of positions()){const n=map.get(pcAt(s,f));if(n&&['1','3','5'].includes(n.lbl))marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',text:labelOf(n,c)})}
-    txt=`${ns[0].name} 大三和弦的 1・3・5 遍布整個指板。所有 CAGED 指型和轉位都是從這張圖切出來的。`;}
+    RT.scrollTo=r;txt=`以第 5 弦第 ${r} 品的 ${ns[0].name} 為根音，一個八度內的所有音程。M3 在下一弦往回 1 格，P5 在下一弦往前 2 格。`;}
+  else{for(const[s,f]of positions()){const n=map.get(pcAt(s,f));if(n&&['1','3','5'].includes(n.lbl))marks.push({s,f,kind:'main',col:colorOf(n.lbl),root:n.lbl==='1',text:labelOf(n,c)})}
+    txt=`${ns[0].name} 大三和弦的 1・3・5 遍布整個指板，CAGED 指型和轉位都從這張圖切出來。`;}
   document.getElementById('demoText').textContent=txt;
   renderMarks(marks,{lines});
 }
 
+/* ================= sheets ================= */
+const sheetEl=document.getElementById('sheet'),sheetC=document.getElementById('sheetContent');
+const SHEETS={
+  key(){
+    const cof=[0,7,2,9,4,11,6,1,8,3,10,5],cx=160,cy=160,idx=cof.indexOf(S.key);let s='';
+    cof.forEach((pc,i)=>{const a=(i*30-90)*Math.PI/180,rel=mod(i-idx+12,12),near=rel<=1||rel===11;
+      const x=cx+Math.cos(a)*128,y=cy+Math.sin(a)*128,x2=cx+Math.cos(a)*84,y2=cy+Math.sin(a)*84;
+      const rm=((FLATPREF.has(pc)||pc===5)?FLAT_N:SHARP_N)[mod(pc+9,12)];
+      s+=`<g data-act="setKey" data-v="${pc}" style="cursor:pointer"><circle cx="${x}" cy="${y}" r="24" fill="${rel===0?'url(#kg)':near?'#33290f':'#1f1b13'}" stroke="${near?'#d4af37':'#3a342a'}" stroke-width="1.5"/><text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="17" font-weight="900" fill="${rel===0?'#1a1306':'#f2ebda'}">${KEYS[pc][0]}</text>
+      <circle cx="${x2}" cy="${y2}" r="18" fill="${near?'#2a2414':'#17140f'}" stroke="${near?'#8a6d1f':'#2c271f'}"/><text x="${x2}" y="${y2}" text-anchor="middle" dominant-baseline="central" font-size="12" fill="${near?'#f3d98c':'#a39a84'}">${rm}m</text></g>`});
+    const sig=[0,-5,2,-3,4,-1,6,1,-4,3,-2,5][S.key];
+    s+=`<text x="${cx}" y="${cy-10}" text-anchor="middle" font-size="12" fill="#a39a84">調號</text><text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="19" font-weight="700" fill="#f3d98c">${sig===0?'無升降':Math.abs(sig)+(sig>0?' 個 ♯':' 個 ♭')}</text>`;
+    return `<h4>選擇${S.tab==='chord'?'根音':'調性'}</h4><svg class="cof" viewBox="0 0 320 320" role="img" aria-label="五度圈"><defs><radialGradient id="kg" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#fff1bf"/><stop offset=".6" stop-color="#d4af37"/><stop offset="1" stop-color="#a47b1c"/></radialGradient></defs>${s}</svg>
+    <p class="hint" style="text-align:center;margin-top:8px">五度圈：外圈是大調，內圈是關係小調。相鄰的調只差一個升降記號，亮起來的三個就是 I、IV、V。</p>`;
+  },
+  display(){
+    const sw=(id,on,t,d)=>`<label class="set"><span class="tx"><b>${t}</b><span>${d}</span></span><span class="sw"><input type="checkbox" data-tog="${id}" ${on?'checked':''}><i></i></span></label>`;
+    return `<h4>顯示設定</h4><h5>指板上的標示</h5>${seg('label',S.label,[['deg','級數 1 2 3'],['name','音名 C D E'],['int','音程 R M3']])}
+    <h5>選項</h5>${sw('parent',S.parent,'首調簡譜','小調和調式以關係大調為 1，例如 A 小調的主音標成 6')}${sw('chrom',S.chrom,'顯示非音階音','音階頁同時顯示其餘半音')}
+    ${sw('dOpen',S.dia.open,'優先用開放和弦','順階和和弦進行盡量用開放和弦按法')}${sw('dScale',S.dia.scale,'順階頁顯示音階音','和弦以外的音階音用淡色顯示')}${sw('sound',S.sound,'聲音','點指板和彈奏和弦時發出聲音')}
+    <div class="row" style="margin-top:16px"><button class="ghostbtn" data-act="replayIntro">重看開場動畫</button></div>`;
+  },
+  scale(){const groups=[...new Set(SCALES.map(s=>s.g))];
+    return `<h4>選擇音階</h4>${groups.map(g=>`<h5>${g}</h5><div class="list">${SCALES.filter(s=>s.g===g).map(s=>`<button class="li" data-act="pickScale" data-v="${s.id}" ${pressed(s.id===S.scale)}><span class="tx"><b>${s.zh}　<span style="display:inline;font-size:12px;color:var(--muted)">${s.en}</span></b><span>${s.desc.split('。')[0]}。</span></span>${CHECK}</button>`).join('')}</div>`).join('')}`},
+  chord(){const G2=[['三和弦',['maj','m','dim','aug','sus2','sus4']],['六和弦與七和弦',['6','m6','7','maj7','m7','m7b5','dim7','mM7','augM7','7sus4']],['延伸和弦',['add9','9','maj9','m9']]];
+    return `<h4>選擇和弦</h4>${G2.map(([g,ids])=>`<h5>${g}</h5><div class="cgrid">${ids.map(id=>{const c=CH(id);return `<button data-act="pickChord" data-v="${id}" ${pressed(id===S.chord.type)}><b>${keyTitle()}${c.sym}</b><span>${c.zh}</span></button>`}).join('')}</div>`).join('')}`},
+  prog(){const dia=buildDiatonic(SC('major'),S.key,keyL(),false),dia7=buildDiatonic(SC('major'),S.key,keyL(),true);
+    return `<h4>和弦進行</h4><div class="list">${PROGS.map(p=>`<button class="li" data-act="pickProg" data-v="${p.id}" ${pressed(p.id===S.dia.prog)}><span class="tx"><b>${p.name}　<span style="display:inline;font-size:12px;color:var(--muted)">${p.zh}</span></b><span>${keyTitle()} 調：${p.seq.map(d=>dia[d-1].root.name+(p.dom?'7':p.sev?dia7[d-1].sym:dia[d-1].sym)).join(' – ')}</span></span>${CHECK}</button>`).join('')}</div>`},
+  quiz(){return `<h4>練習設定</h4><h5>怎麼回答</h5>${seg('qAns',S.quiz.ans,[['deg','級數'],['name','音名']])}<h5>範圍</h5>${seg('qRange',S.quiz.range,[[5,'0–5 品'],[12,'0–12 品'],[22,'全指板']])}
+    <p class="hint" style="margin-top:14px">題目用「音階」頁選的音階出題，目前是 ${keyTitle()} ${SC(S.scale).zh}。</p>`},
+};
+function openSheet(n){RT.sheet=n;sheetC.innerHTML=SHEETS[n]();sheetEl.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>sheetEl.classList.add('open')))}
+function closeSheet(){if(!RT.sheet)return;RT.sheet=null;sheetEl.classList.remove('open');setTimeout(()=>{if(!RT.sheet)sheetEl.hidden=true},260)}
+
 /* ================= update / events ================= */
 const VIEWS={scale:viewScale,caged:viewCaged,chord:viewChord,dia:viewDia,quiz:viewQuiz,learn:viewLearn};
 function renderHeader(){
-  document.getElementById('keys').innerHTML=KEYS.map((k,i)=>`<button class="key" data-act="key" data-v="${i}" ${pressed(i===S.key)}>${k[0]}</button>`).join('');
-  document.querySelectorAll('[data-act="tab"]').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===S.tab));
-  document.querySelectorAll('[data-act="label"]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.label));
+  document.getElementById('keyK').textContent=keyTitle();
+  document.getElementById('keyL').textContent=S.tab==='chord'?'根音':S.tab==='scale'||S.tab==='quiz'?SC(S.scale).zh:S.tab==='caged'?(S.caged.minor?'小調':'大調'):S.tab==='dia'?SC(S.dia.mode).zh:'調性';
+  document.querySelectorAll('.nb').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===S.tab));
 }
-function update(){save();renderHeader();VIEWS[S.tab]()}
+function update(){save();renderHeader();VIEWS[S.tab]();if(RT.sheet)sheetC.innerHTML=SHEETS[RT.sheet]()}
 let toastT;function toast(h){const t=document.getElementById('toast');t.innerHTML=h;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2600)}
-
 function stopPlay(){if(RT.play){clearInterval(RT.play);RT.play=null;RT.playIdx=-1}}
 function startPlay(){stopPlay();ac();const pcs=progChords();let beat=0;RT.playIdx=0;
-  const step=()=>{const bar=Math.floor(beat/4),b=beat%4;const i=bar%pcs.length;
-    if(b===0){RT.playIdx=i;if(pcs[i].v)strum(pcs[i].v.fr,.38);RT.noanim=false;VIEWS.dia()}else if(b===2&&pcs[i].v){strum(pcs[i].v.fr.map(x=>x),.22)}
+  const step=()=>{const bar=Math.floor(beat/4),b=beat%4,i=bar%pcs.length;
+    if(b===0){RT.playIdx=i;if(pcs[i].v)strum(pcs[i].v.fr,.38);VIEWS.dia()}else if(b===2&&pcs[i].v)strum(pcs[i].v.fr,.22);
     tick(b===0);beat++};
   step();RT.play=setInterval(step,60000/S.dia.bpm)}
+
+document.getElementById('intro').addEventListener('click',enterApp);
+document.getElementById('intro').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enterApp()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 
 document.addEventListener('click',e=>{
   const el=e.target.closest('[data-act]');if(!el)return;const a=el.dataset.act,v=el.dataset.v;
   switch(a){
-    case 'key':S.key=+v;RT.q=null;RT.find=null;if(S.tab==='scale')S.hidden=[];if(RT.play){update();startPlay();return}break;
-    case 'tab':if(S.tab!==v)stopPlay();S.tab=v;break;
+    case 'sheet':openSheet(v);return;
+    case 'closeSheet':closeSheet();return;
+    case 'replayIntro':closeSheet();replayIntro();return;
+    case 'setKey':S.key=+v;RT.q=null;RT.find=null;S.hidden=[];closeSheet();if(RT.play){update();startPlay();return}break;
+    case 'pickScale':S.scale=v;S.hidden=[];RT.q=null;RT.find=null;closeSheet();break;
+    case 'pickChord':S.chord.type=v;S.chord.v=0;closeSheet();break;
+    case 'pickProg':S.dia.prog=v;closeSheet();if(RT.play){update();startPlay();return}break;
+    case 'tab':if(S.tab!==v){stopPlay();S.tab=v;scrollTo(0,0)}break;
     case 'label':S.label=v;break;
     case 'hide':{const i=S.hidden.indexOf(v);i<0?S.hidden.push(v):S.hidden.splice(i,1);break}
     case 'cMinor':S.caged.minor=v==='1';break;
     case 'cShape':S.caged.shape=v;RT.scrollTo='caged';break;
     case 'cOv':S.caged.ov=v;break;
     case 'strumCaged':if(RT.cagedMemo)strum(RT.cagedMemo);return;
-    case 'chType':S.chord.type=v;S.chord.v=0;break;
-    case 'chV':S.chord.v=+v;RT.scrollTo='v';{const vs=voicingsFor(S.key,S.chord.type);if(vs[+v])strum(vs[+v].fr)}break;
+    case 'chStep':{const vs=voicingsFor(S.key,S.chord.type);S.chord.v=mod(S.chord.v+(+v),vs.length);RT.scrollTo='v';if(vs[S.chord.v])strum(vs[S.chord.v].fr);break}
     case 'strumV':{const vs=voicingsFor(S.key,S.chord.type);if(vs[S.chord.v])strum(vs[S.chord.v].fr)}return;
+    case 'chAll':S.chord.all=v==='1';break;
     case 'dMode':S.dia.mode=v;break;
     case 'dSev':S.dia.sev=v==='1';break;
     case 'dSel':stopPlay();S.dia.sel=+v;update();if(RT.diaV)strum(RT.diaV.fr);return;
-    case 'prog':S.dia.prog=v;if(RT.play){update();startPlay();return}break;
-    case 'play':if(RT.play){stopPlay()}else{startPlay();return}break;
+    case 'play':if(RT.play)stopPlay();else{startPlay();return}break;
+    case 'bpm':S.dia.bpm=Math.max(48,Math.min(176,S.dia.bpm+(+v)));if(RT.play){save();startPlay();return}break;
     case 'qMode':S.quiz.mode=v;RT.q=null;RT.find=null;break;
     case 'qAns':S.quiz.ans=v;break;
     case 'qRange':S.quiz.range=+v;RT.q=null;RT.find=null;break;
@@ -735,11 +868,9 @@ document.addEventListener('click',e=>{
   }
   update();
 });
-document.addEventListener('change',e=>{const el=e.target;
-  if(el.dataset.change==='scale'){S.scale=el.value;S.hidden=[];RT.q=null;RT.find=null;update()}
-  const tg=el.dataset.tog;if(tg){const m={chrom:['',"chrom"],parent:['','parent'],chAll:['chord','all'],dOpen:['dia','open'],dScale:['dia','scale']}[tg];if(m[0])S[m[0]][m[1]]=el.checked;else S[m[1]]=el.checked;if(tg==='dOpen'&&RT.play){update();startPlay();return}update()}
-});
-document.addEventListener('input',e=>{if(e.target.dataset.input==='bpm'){S.dia.bpm=+e.target.value;document.getElementById('bpmV').textContent=S.dia.bpm;save();if(RT.play){clearInterval(RT.play);const cur=RT.playIdx;startPlay()}}});
+document.addEventListener('change',e=>{const tg=e.target.dataset.tog;if(!tg)return;const on=e.target.checked;
+  ({parent:()=>S.parent=on,chrom:()=>S.chrom=on,dOpen:()=>S.dia.open=on,dScale:()=>S.dia.scale=on,sound:()=>S.sound=on})[tg]();
+  if(tg==='dOpen'&&RT.play){update();startPlay();return}update()});
 
 svg.addEventListener('click',e=>{
   const pnt=svg.createSVGPoint();pnt.x=e.clientX;pnt.y=e.clientY;const q=pnt.matrixTransform(svg.getScreenCTM().inverse());
@@ -752,13 +883,12 @@ svg.addEventListener('click',e=>{
     else{F.wrong.push([s,f]);setTimeout(()=>{F.wrong.shift();RT.noanim=true;if(S.tab==='quiz')VIEWS.quiz()},900)}
     RT.noanim=true;VIEWS.quiz();return}
   if(S.tab==='quiz')return;
-  const nm=nameOfPc(p),deg=fmt(CHROM[mod(p-S.key,12)]);
-  toast(`第 ${6-s} 弦・${f===0?'空弦':'第 '+f+' 品'}　<b>${nm}</b>　${keyTitle()} 調 ${deg} 級・${INT_NAME[mod(p-S.key,12)]}　<span style="color:var(--muted)">八度 ${Math.floor(midi/12)-1}</span>`);
+  toast(`第 ${6-s} 弦・${f===0?'空弦':'第 '+f+' 品'}　<b>${nameOfPc(p)}</b>　${keyTitle()} 調的 ${fmt(CHROM[mod(p-S.key,12)])} 級`);
   RT.flash={pc:p};RT.noanim=true;VIEWS[S.tab]();clearTimeout(RT.flT);RT.flT=setTimeout(()=>{RT.flash=null;RT.noanim=true;VIEWS[S.tab]()},1700);
 });
 
 let lastW=0;new ResizeObserver(()=>{const w=neckEl.clientWidth;if(Math.abs(w-lastW)<2)return;lastW=w;layout();RT.noanim=true;VIEWS[S.tab]()}).observe(neckEl);
-renderHeader();layout();update();
+drawGuitar();renderHeader();layout();update();
 </script>
 </body>
 </html>
